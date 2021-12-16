@@ -26,6 +26,38 @@
 
 ## CUDA的安装
 
-**第一步**：检查自己的GPU驱动版本号
+**第一步：检查自己的GPU驱动版本号**
 
-![image-20211216224847814](Figure/CUDA/1)
+<img src="Figure/CUDA/1" alt="image-20211216230153007" style="zoom:80%;" />
+
+如图所示，NVIDIA-SMI以及Driver Version后面的数字即为驱动的版本号，我们需要根据这个版本号安装合适的CUDA。驱动版本和CUDA的对应关系在如下网站查询：https://docs.nvidia.com/cuda/cuda-toolkit-release-notes/index.html
+
+<img src="Figure/CUDA/2.png" style="zoom:80%;" />
+
+
+
+**第二步：安装**
+
+找到合适的CUDA版本之后，我们就可以在CUDA官网下载对应的安装包，下面以CUDA11.5为例：
+
+https://developer.nvidia.cn/cuda-downloads?target_os=Windows&target_arch=x86_64&target_version=11&target_type=exe_local
+
+<img src="Figure/CUDA/3.png" style="zoom:80%;" />
+
+下载之后，安装到默认路径`C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA`即可，不建议改换路径。如果之前也安装过CUDA，安装另一个版本时并不会自动删除原来版本，此时可以从此路径下自行删除。
+
+安装过程中，一般会自动配置环境变量，我们可以自行删除上一个版本的环境变量。
+
+**第三步：验证**
+
+安装之后，我们在命令行输入 `nvidia-smi` 或者 `nvcc -V` 即可查看CUDA版本号。如果显示结果如下，则CUDA安装成功
+
+<img src="Figure/CUDA/4.png" style="zoom:80%;" />
+
+
+
+## CUDNN的安装
+
+
+
+## Pytorch的安装
