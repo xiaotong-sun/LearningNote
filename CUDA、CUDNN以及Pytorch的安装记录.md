@@ -28,7 +28,7 @@
 
 **第一步：检查自己的GPU驱动版本号**
 
-<img src="Figure/CUDA/1" alt="image-20211216230153007" style="zoom:80%;" />
+<img src="Figure/CUDA/1.png" alt="image-20211216230153007" style="zoom:80%;" />
 
 如图所示，NVIDIA-SMI以及Driver Version后面的数字即为驱动的版本号，我们需要根据这个版本号安装合适的CUDA。驱动版本和CUDA的对应关系在如下网站查询：https://docs.nvidia.com/cuda/cuda-toolkit-release-notes/index.html
 
