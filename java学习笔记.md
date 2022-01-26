@@ -1,7 +1,3 @@
-[TOC]
-
-
-
 # Java学习笔记
 
 ## 1. Java语言介绍
@@ -264,3 +260,518 @@ public class VariableDemo {
 1. 首先计算关系表达式的值
 2. 如果值为true，表达式1的值就是运算结果
 3. 如果值为false，表达式2的值就是运算结果
+
+
+
+### 3.11 数据输入
+
+**Scanner使用的基本步骤**
+
+:one: 导包
+
+```java
+import java.util.Scanner;
+// 导包的动作必须出现在类定义的上边
+```
+
+:two: 创建对象
+
+```java
+Scanner sc = new Scanner(System.in);
+```
+
+:three: 接收数据
+
+```java
+int i = sc.nextInt();
+```
+
+
+
+### 3.12 Random
+
+作用：用于产生一个随机数
+
+使用步骤:
+
+:one: 导包
+
+```java
+import java.util.Random;
+```
+
+:two: 创建对象
+
+```java
+Random r = new Random();
+```
+
+:three: 获取随机数
+
+```java
+int number = r.nextInt(10);
+// 获取随机数的范围为：[0,10), 包括0，但不包括10
+```
+
+
+
+### 3.13 数组
+
+数据是一种用来存储==多个相同类型数据==的存储类型
+
+#### 3.13.1 数组的定义格式
+
+- 格式一： 数据类型`[]`  变量名
+- 范例：`int[] arr`
+
+
+
+- 格式二： 数据类型  变量名`[]`
+- 范例：`int arr[]`
+
+**注意：**这两种格式在使用上是等价的，但推荐第一种格式。
+
+
+
+#### 3.13.2 数组的初始化
+
+**动态初始化：**初始化时仅指定数组长度，由系统为数组分配初始值。
+
+- 格式：数据类型`[]`  变量名 = new 数据类型`[数组长度]`
+- 范例：`int[] arr = new int[3];`
+
+**静态初始化：**初始化时，指定每个数组元素的初始值，由系统决定数组长度。
+
+- 格式：数据类型`[]` 变量名 = new 数据类型`[]` {数据1， 数据2， 数据3}；
+- 范例：`int[] arr = new int[] {1, 2, 3};`
+- 简化格式：`int[] arr = {1, 2, 3};`
+
+
+
+#### 3.13.3 内存分配
+
+<center><img src="Figure/JavaLearningNote/13.png" style="zoom:80%;" />
+
+
+
+
+
+## 4. java流程控制
+
+### 4.1 流程控制语句分类
+
+- 顺序结构
+- 分支结构`if`, `switch`
+- 循环结构`for`, `while`, `do...while`
+
+
+
+### 4.2 switch语句格式
+
+```
+switch(表达式) {
+	case 值1:
+		语句体1;
+		break;
+	case 值2:
+		语句体2;
+		break;
+	...
+	default:
+		语句体n+1;
+		break;
+}
+```
+
+**注意事项： case穿透**
+
+如果在一个语句体结束之后，没有break，就会继续执行下面的case，直到遇到break为止。合理利用case穿透现象可以简化程序。
+
+```java
+// case穿透现象的应用示例
+switch(month) {
+    case 1:
+    case 2:
+    case 12:
+        System.out.println("冬季");
+        break;
+    case 3:
+    case 4:
+    case 5:
+        System.out.println("春季");
+        break;
+}
+```
+
+
+
+
+
+## 5. IDEA的安装与使用
+
+
+
+### 5.1 IDEA概述
+
+IDEA是用于Java语言开发的集成环境，它是业界公认的目前用于java程序开发的最好的工具。
+
+**集成环境：**把代码==编写、编译、执行、调试==等多种功能综合到一起的开发工具
+
+
+
+### 5.2 IDEA创建项目流程
+
+:one: 创建空项目
+
+<center><img src="Figure/JavaLearningNote/5.png" style="zoom:80%;" /></center>
+
+:two: 创建新模块
+
+<center><img src="Figure/JavaLearningNote/6.png" style="zoom:80%;" /></center>
+
+:three: 在模块下的src下创建一个包
+
+<center><img src="Figure/JavaLearningNote/7.png" style="zoom:80%;" /></center>
+
+:four: 在包下创建一个类
+
+<center><img src="Figure/JavaLearningNote/8.png" style="zoom:80%;" />
+
+:five: 在类中编写代码
+
+:six: 在idea中执行程序(生成的class文件在out目录下)
+
+<center><img src="Figure/JavaLearningNote/9.png" style="zoom:80%;" />
+
+
+
+### 5.3 IDEA项目结构
+
+<center><img src="Figure/JavaLearningNote/10.png" style="zoom:80%;" />
+
+
+
+
+
+### 5.4 IDEA中内容辅助键和快捷键
+
+#### 5.4.1 内容辅助键
+
+- 快速生成语句
+    - 快速生成main()方法：`psvm，回车` 或者 `main， 回车`
+    - 快速生成输出语句：`sout, 回车`
+- 内容辅助键
+    - `Ctrl + Alt + space`: 内容提示， 代码补全等(新版本可能无法使用，直接tab即可)。
+
+#### 5.4.2 注释键
+
+- 单行注释：选中代码，`ctrl + /`
+- 多行注释：选中代码，`ctrl + shift + /`
+
+
+
+### 5.5 IDEA中模块操作
+
+- 新建模块：操作见上面创建项目
+
+- 删除模块
+
+    <center><img src="Figure/JavaLearningNote/11.png" style="zoom:80%;" />
+
+- 导入模块
+
+    <center><img src="Figure/JavaLearningNote/12.png" style="zoom:80%;" />
+
+
+
+## 6. java初级进阶
+
+### 6.1 方法
+
+#### 6.1.1 方法概述
+
+- ==方法==是将具有独立功能的代码块组织成为一个整体，使其具有特殊的代码集。
+- 方法必须先创建才能使用，该过程成为==方法定义==
+- 方法创建后并不是直接运行的，需要手动使用后才可以执行，该过程称为==方法调用==。
+
+
+
+#### 6.1.2 方法定义和调用
+
+- 定义的格式：
+
+    ```java
+    public static void 方法名() {
+        // 方法体
+    }
+    ```
+
+- 调用的格式：
+
+    ```java
+    方法名();
+    ```
+
+- 带参数方法的定义：
+
+    ```java
+    public static void isEvenNumber(int a, int b) {
+        // 方法体
+    }
+    ```
+
+
+
+#### 6.1.3 方法的注意事项
+
+- 方法==不能嵌套定义==
+- void表示无返回值，可以省略return， 也可以单独的书写return，后面不加数据。
+- 定义方法时，要做到==两个明确==
+    - 明确返回值类型
+    - 明确参数类型和数量
+
+
+
+#### 6.1.4 方法重载
+
+**方法重载**指同一个类中定义的多个方法之间的关系，这些方法只有满足下列条件才相会构成重载
+
+- 多个方法在==同一个类中==
+- 多个方法具有==相同的方法名==
+- 多个方法的==参数不相同==或者==类型不同==或者==数量不同==
+
+**特点：**
+
+1. 重载仅对应方法的定义，与方法的调用无关
+2. 重载仅针对同一个类中方法的==名称与参数进行识别==，与==返回值无关==，不能通过返回值来判断方法是否重载。
+3. 在调用时，java虚拟机会通过==参数的不同==来区分同名的方法。
+
+
+
+方法重载范例；
+
+```java
+/* 示例一 */
+public class MethodDemo {
+    public static void fn(int a) {
+        // 方法体
+    }
+    public static void fn(double a) {
+        // 方法体
+    }
+}
+
+/* 示例二 */
+public class MethodDemo {
+    public static float fn(int a) {
+        // 方法体
+    }
+    public static int fn(int a, int b) {
+        // 方法体
+    }
+}
+```
+
+
+
+
+
+### 6.2 Debug
+
+**Debug:**是供程序员使用的程序调试工具，它可以用于==查看程序的执行流程==，也可以用于追踪程序的执行过程来==调试程序==。
+
+Debug调试又称为断点调试，断点其实是一个标记，告诉我们从哪里查看。
+
+
+
+### 6.3 类和对象
+
+#### 6.3.1 类
+
+类的重要性：是java程序的基本组成单位
+
+类的定义：是对现实生活中一类具有==共同属性==和==行为==的事物的抽象，确定对象将会拥有的属性和行为
+
+类的组成：
+
+- 属性：在类中通过==成员变量==来体现(类中方法外的变量)
+- 行为：在类中通过==成员方法==来体现。
+
+
+
+#### 6.3.2 类的定义
+
+- 步骤：
+
+    ```mermaid
+    graph LR;
+    	定义类 --> 编写类的成员变量
+    	编写类的成员变量 --> 编写类的成员方法
+    ```
+
+- 格式：
+
+    ```java
+    public class 类名 {
+        // 成员变量
+        数据类型 变量1;
+        数据类型 变量2;
+        ....
+        // 成员方法
+        方法1;
+        方法2;
+        ....
+    }
+    ```
+
+- 范例：
+
+    ```java
+    public class Phone {
+        String brand;
+        int price;
+        
+        public void call() {
+            System.out.println("call");
+        }
+        
+        public void sendMessage() {
+            System.out.println("message");
+        }
+    }
+    ```
+
+
+
+#### 6..3.3 对象
+
+**创建对象：**
+
+- 格式：类名 对象名 = new 类名();
+- 范例：`Phone p = new Phone();`
+
+**使用对象：**
+
+1. 使用成员变量
+    - 格式：对象名.变量名
+    - 范例：`p.brand`
+2. 使用成员方法
+    - 格式：对象名.方法名
+    - 范例：`p.call()`
+
+```java
+public class PhoneDemo {
+    public static void main(String[] args) {
+        Phone p = new Phone();
+        p.brand = "小米";
+        p.price = 2999;
+        System.out.println(p.brand);
+        System.out.println(p.price);
+        p.call();
+        p.sendMessage();
+    }
+}
+```
+
+
+
+#### 6.3.4 对象内存图及调用过程
+
+<center>
+    <img src="Figure/JavaLearningNote/14.png" style="zoom:80%;" />
+    <br>
+    <b>study方法调用完毕后，出栈，doHomework入栈 </b><br>
+    <img src="Figure/JavaLearningNote/15.png" style="zoom:80%;" />
+</center>
+
+
+
+
+
+#### 6.3.5 成员变量和局部变量
+
+<center><img src="Figure/JavaLearningNote/16.png" style="zoom:80%;" />
+
+
+
+### 6.4 封装
+
+#### 6.4.1 private关键字
+
+- 是一个==权限修饰符==
+- 可以修饰成员变量和成员方法
+- 作用是：保护成员不被别的类使用，被private修饰的成员只在本类中才能访问
+
+针对private关键字修饰的成员变量，如果需要被其他类使用，必须提供相应的操作
+
+- 提供“get变量名()”方法，获取成员变量的值，方法用public修饰
+- 提供“set变量名(参数)",用于设置成员变量的值，方法用public修饰
+
+==通过以上方式可以处理输入数据的安全问题==
+
+
+
+范例：
+
+```java
+package com.itheima02;
+
+public class Student {
+    String name;
+    private int age;
+
+    public void setAge(int a) {
+        if (a >= 120 || a <= 0) {
+            System.out.println("你输入的年龄有误");
+        } else {
+            age = a;
+        }
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void show() {
+        System.out.println(name + "," + age);
+    }
+}
+
+
+public class StudentDemo {
+    public static void main(String[] args) {
+        Student stu = new Student();
+        stu.name = "小明";
+        stu.setAge(-30);
+        stu.show();
+        stu.setAge(30);
+        stu.show();
+        System.out.println("getAge方法测试结果：" + stu.getAge());
+    }
+}
+
+// OUT
+你输入的年龄有误
+小明,0
+小明,30
+getAge方法测试结果：30
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
