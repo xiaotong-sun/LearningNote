@@ -694,7 +694,7 @@ public class PhoneDemo {
 
 
 
-### 6.4 封装
+### 6.4 ==封装==
 
 #### 6.4.1 private关键字
 
@@ -756,6 +756,645 @@ public class StudentDemo {
 小明,30
 getAge方法测试结果：30
 ```
+
+
+
+#### 6.4.2 this关健字
+
+1. this修饰的变量用于指代==成员变量==
+    - 方法的形参如果与成员变量同名，不带this修饰的变量指的是形参，而不是成员变量
+    - 方法的形参没有与成员变量同名，不带this修饰的变量指的是成员变量
+2. this解决==局部变量隐藏成员变量的问题==
+3. this：代表所在类的对象引用。==方法被哪个对象调用，this就代表哪个对象==。
+
+
+
+#### 6.4.3 封装的概念
+
+<center><img src="Figure/JavaLearningNote/17.png" style="zoom:100%;" />
+
+
+
+### 6.5 构造方法
+
+构造方法是一种特殊方法，作用是在创建对象时完成对象数据的初始化。当一个类中没有构造方法，系统将默认给类一个无参的构造方法。·
+
+**基本格式:**
+
+```java
+public class 类名 {
+    修饰符 类名(参数) {
+        //内容
+    }
+}
+// 范例
+public class Student {
+    public Student() {
+        //内容
+    }
+}
+```
+
+
+
+**注意事项：**
+
+<center><img src="Figure/JavaLearningNote/18.png" style="zoom:80%;" />
+
+
+
+
+
+**标准类的制作：**
+
+<center><img src="Figure/JavaLearningNote/19.png" style="zoom:80%;" />
+
+**范例：**
+
+```java
+package com.itheima;
+
+public class Student {
+    // 成员变量
+    private String name;
+    private int age;
+
+    // 构造方法
+    public Student() {
+    }
+
+    public Student(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    // 成员方法
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void show() {
+        System.out.println(name + "," + age);
+    }
+}
+
+
+public class StudentDemo {
+    public static void main(String[] args) {
+        // 无参构造
+        Student s1 = new Student();
+        s1.setName("小明");
+        s1.setAge(30);
+        s1.show();
+
+        // 带参构造
+        Student s2 = new Student("小刚", 20);
+        s2.show();
+    }
+}
+```
+
+
+
+### 6.6 API
+
+#### 6.6.1 API概述
+
+API(Application Programming Interface):应用程序编程接口（本质上就是一些接口类，这些类中定义好了一些有用的方法）
+
+Java API：指的就是JDK中提供的各种功能的java类。我们可以通过==帮助文档==来查看这些类。java.lang包下的类不需要导包。
+
+
+
+#### 6.6.2 如何使用帮助文档
+
+```mermaid
+	graph LR;
+		在帮助文档中找到该类 --> 看类在哪个包下
+		看类在哪个包下 --> 看类的描述信息
+		看类的描述信息 --> 看构造方法
+		看构造方法 --> 看成员方法
+```
+
+
+
+### 6.7 String
+
+#### 6.7.1 概述
+
+<center><img src="Figure/JavaLearningNote/20.png" style="zoom:80%;" />
+
+
+
+#### 6.7.2 构造方法：
+
+<center><img src="Figure/JavaLearningNote/21.png" style="zoom:80%;" />
+
+
+
+#### 6.7.3 String对象特点
+
+1. 通过new创建的字符串对象，每一次new都会申请一个内存空间，即使内容相同，它们的地址也是不同的。
+2. 通过`“”`方式给出的字符串，只要字符序列相同（顺序和大小写），无论在代码中出现几次，都只是一个String对象。
+
+
+
+#### 6.7.4 字符串的比较
+
+- 使用`==`作比较
+    - 基本类型：比较的是==数据值==是否相同
+    - 引用类型：比较的是==地址值==是否相同
+- 使用`equals()`
+    - 比较的是引用的内容是否相同。
+
+
+
+#### 6.7.5 案例
+
+##### 统计字符串中大写字母，小写字母，及数字个数。
+
+```java
+import java.util.Scanner;
+
+public class StringCount {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Please input the String:");
+        String str = sc.nextLine();
+        int count1 = 0, count2 = 0, count3 = 0;
+        for (int i = 0; i < str.length(); i ++) {
+            char ch = str.charAt(i);
+            if (ch >= 'A' && ch <= 'Z') {
+                count1 ++;
+            }else if (ch >= 'a' && ch <= 'z') {
+                count2 ++;
+            } else if(ch >= '0' && ch <= '9') {
+                count3 ++;
+            }
+        }
+        System.out.println("大写字母：" + count1);
+        System.out.println("小写字母：" + count2);
+        System.out.println("数字：" + count3);
+    }
+}
+```
+
+
+
+##### 字符串反转
+
+```java
+import java.util.Scanner;
+
+public class StringReverse {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String str = sc.nextLine();
+        String ans = reverse(str);
+        System.out.println(ans);
+    }
+
+    public static String reverse(String str) {
+        String ans = "";
+        for (int i = str.length() - 1; i >= 0; i --) {
+            ans += str.charAt(i);
+        }
+        return ans;
+    }
+}
+```
+
+
+
+### 6.8 StringBulider
+
+#### 6.8.1 概述
+
+<center><img src="Figure/JavaLearningNote/22.png" style="zoom:80%;" />
+    <br><br>
+    <img src="Figure/JavaLearningNote/23.png" style="zoom:80%;" />
+
+
+
+#### 6.8.2 范例
+
+```java
+// 范例1
+public class StringBuilderDemo {
+    public static void main(String[] args) {
+        StringBuilder sb = new StringBuilder();
+        // 链式编程
+        sb.append("hello").append(" world").append(" 123");
+        System.out.println(sb);
+    }
+}
+
+
+// 范例2
+public class StringBuilderDemo {
+    public static void main(String[] args) {
+        int[] arr = {1, 2, 3};
+        System.out.println(arrayToString(arr));
+        String str = "abcd";
+        System.out.println(myRverse(str));
+    }
+
+    public static String arrayToString(int[] arr) {
+        StringBuilder sb = new StringBuilder("[");
+        for (int i = 0; i < arr.length; i ++) {
+            sb.append(i);
+            if (i < arr.length - 1) {
+                sb.append(",");
+            }
+        }
+        sb.append("]");
+        return sb.toString();
+    }
+
+    public static String myRverse(String str) {
+        StringBuilder sb = new StringBuilder(str);
+        return sb.reverse().toString();
+    }
+}
+```
+
+
+
+<center><img src="Figure/JavaLearningNote/24.png" style="zoom:80%;" />
+
+
+
+
+
+### 6.9 集合
+
+#### 6.9.1 集合概述
+
+集合类的特点：提供一种==存储空间可变==的存储模型，存储的数据容量可以发生改变。
+
+**案例：集合存储学生对象，并遍历**
+
+```java
+// 定义学生类
+public class Student {
+    // 成员变量
+    private String name;
+    private int age;
+
+    // 构造方法
+    public Student() {
+    }
+
+    public Student(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    // 成员方法
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public int getAge() {
+        return age;
+    }
+}
+
+// 遍历
+public class ArrayListTest {
+    public static void main(String[] args) {
+        // 创建集合对象
+        ArrayList<Student> array = new ArrayList<>();
+
+        // 创建学生对象
+        Student stu1 = new Student("小明", 18);
+        Student stu2 = new Student("小刚", 13);
+        Student stu3 = new Student("小李", 19);
+
+        // 添加学生对象到集合中
+        array.add(stu1);
+        array.add(stu2);
+        array.add(stu3);
+
+        // 遍历集合
+        for (int i = 0; i < array.size(); i++) {
+            Student s = array.get(i);
+            System.out.println(s.getName() + "," + s.getAge());
+        }
+    }
+}
+```
+
+
+
+### 6.10 ==继承==
+
+- java中类只支持单继承，不支持多继承
+- java中类支持多层继承
+
+#### 6.10.1 继承概述
+
+继承是面向对象三大特征之一。可以使得子类具有父类的属性和方法，还可以在子类中重新定义，最佳属性和方法。
+
+#### 6.10.2 格式
+
+- 格式：public class 子类名 extends 父类名{}
+- 范例：`public calss Zi extends Fu {}`
+- Fu: 是父类，也称为基类、超类。
+- Zi：是子类，也被称为派生类。
+
+
+
+继承中子类的特点：
+
+- 子类可以有父类的内容
+- 子类可以有自己特有的内容
+
+```java
+// 父类
+public class Fu {
+    public void show() {
+        System.out.println("show方法被调用");
+    }
+}
+
+//子类
+public class Zi extends Fu{
+    public void method() {
+        System.out.println("method方法被调用");
+    }
+}
+
+// 测试类
+public class Demo {
+    public static void main(String[] args) {
+        Fu f = new Fu();
+        f.show();
+
+        Zi z = new Zi();
+        z.method();
+        z.show();
+    }
+}
+```
+
+
+
+#### 6.10.3 继承的好处和缺点
+
+<center><img src="Figure/JavaLearningNote/25.png" style="zoom:100%;" />
+
+
+
+#### 6.10.4 继承中变量的访问特点
+
+在子类方法中访问一个变量的查找顺序：
+
+1. 子类方法内部局部范围查找
+2. 子类成员范围查找
+3. 父类成员方法查找
+4. 如果都没有就报错（不考虑父类的父类）
+
+
+
+#### 6.10.5 super
+
+```java
+// 父类
+public class Fu {
+    public int age = 40;
+}
+
+// 子类
+public class Zi extends Fu {
+    public int age = 20;
+
+    public void show() {
+        int age = 30;
+        System.out.println(age);
+        System.out.println(this.age); // 访问子类成员变量
+        System.out.println(super.age); // 访问父类成员变量
+    }
+}
+
+// 测试类
+public class Demo {
+    public static void main(String[] args) {
+        Zi z = new Zi();
+        z.show();
+    }
+}
+```
+
+<center><img src="Figure/JavaLearningNote/26.png" style="zoom:80%;" />
+
+
+
+#### 6.10.6 继承中构造方法的访问特点
+
+<center><img src="Figure/JavaLearningNote/27.png" style="zoom:100%;" />
+
+
+
+
+
+#### 6.10.7 继承中成员方法的访问特点
+
+通过子类对象访问一个方法
+
+- 子类成员范围查找
+- 父类成员范围查找
+- 都没有则报错（不考虑父类的父类）
+
+
+
+#### 6.10.8 super内存图
+
+<center>
+    <img src="Figure/JavaLearningNote/30.png" style="zoom:100%;" />
+    <br><br>
+    <img src="Figure/JavaLearningNote/28.png" style="zoom:100%;" />
+    <br><br>
+    <img src="Figure/JavaLearningNote/29.png" style="zoom:100%;" />
+
+
+#### 6.10.9 方法重写
+
+方法重写：子类中出现了和父类中一模一样的方法声明
+
+方法重写的应用：当子类需要父类的功能，而功能主体子类有自己特有的内容时，可以重写父类中的方法，这样，既沿袭了父类的功能，又定义了子类特有的内容。
+
+==@Override==
+
+- 是一个注解。
+- 可以帮助我们检查重写方法的方法声明的正确性。
+
+
+
+**注意事项：**
+
+1. 私有方法不能被重写（父类私有成员子类是不能继承的）
+2. 子类方法访问权限不能更低(public  > 默认 > 私有)
+
+
+
+### 6.11 包
+
+#### 6.11.1 概述
+
+包其实就是文件夹
+
+作用：对类进行分类管理
+
+包的定义格式
+
+- 格式：package 包名； （多级包用`.`分开
+- 范例：`package com.itheima;`
+
+<center><img src="Figure/JavaLearningNote/31.png" style="zoom:100%;" />
+
+
+
+#### 6.11.2 导包
+
+```java
+// 格式
+import cn.itcast.Teacher
+```
+
+
+
+### 6.12 修饰符
+
+- 权限修饰符
+
+    <center><img src="Figure/JavaLearningNote/32.png" style="zoom:100%;" />
+
+- 状态修饰符
+
+    - final：是最终的意思，可以修饰成员方法，成员变量，类
+
+        - 修饰方法时：表示该方法是最终方法，==不能被重写==
+        - 修饰变量时：表示该变量是常量，==不能再次被赋值==
+            - 变量是基本类型时：final修饰指的是==基本类型的数据值==不能发生改变。
+            - 变量是引用类型时：final修饰指的是==引用类型的地址值==不能发生改变，但地址里面的内容是可以改变的。
+        - 修饰类：表明该类是最终类，==不能被继承==
+
+    - static：是静态的意思，可以修饰成员方法，成员变量（有点像全局变量的意思）
+
+        - 被类的所有对象共享
+
+        - 可以通过类名调用（推荐），也可以通过对象名调用
+
+            <center><img src="Figure/JavaLearningNote/33.png" style="zoom:100%;" />
+
+
+
+### 6.13 ==多态==
+
+#### 6.13.1 多态概述
+
+同一个对象，在不同时刻表现出来的不同状态
+
+> 举例：学生
+>
+> 我们可以说学生是学生： `Student stu = new Student();`
+>
+> 我们也可以说学生是人：`Person stu = new Student();`
+>
+> 这里学生在不同时刻表现出来了不同的形态，这就是多态。
+
+
+
+多态的前提和体现
+
+- 有继承或实现的关系
+- 有方法重写
+- 有父类引用指向子类对象
+
+
+
+#### 6.13.2 多态中成员访问特点
+
+- 成员变量：编译看左边，执行也看左边
+- 成员方法：编译看左边，执行看右边
+
+为什么成员变量和成员方法的访问不一样呢？
+
+- 因为成员方法有重写，而成员变量没有。
+
+
+
+#### 6.13.3 多态的好处和弊端
+
+- 好处：提高了程序的拓展性
+    - 具体体现：定义方法时，使用父类型作为参数，将来在使用的时候，使用具体的子类型参与操作
+- 弊端：不能使用子类的特有功能。
+
+
+
+#### 6.13.4 多态中的转型
+
+- 向上转型
+    - 从子到父
+    - 父类引用==指向==子类对象
+- 向下转型
+    - 从父到子
+    - 父类引用==转为==子类对象
+
+
+
+```java
+public class Demo {
+    public static void main(String[] args) {
+        // 多态
+    	Animal a = new Cat(); // 向上转型
+        
+        Cat c = (Cat)a; // 向下转型
+        
+    }
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
