@@ -1180,7 +1180,7 @@ public class Demo {
 1. 子类方法内部局部范围查找
 2. 子类成员范围查找
 3. 父类成员方法查找
-4. 如果都没有就报错（不考虑父类的父类）
+4. 如果都没有就报错（不考虑父类的父类，但是如果父类还有父类也需检查）
 
 
 
@@ -1337,7 +1337,7 @@ import cn.itcast.Teacher
 
 - 有继承或实现的关系
 - 有方法重写
-- 有父类引用指向子类对象
+- 有父(类/接口)引用指向(子/实现)类对象
 
 
 
@@ -1412,32 +1412,613 @@ public abstract class Animal {
 <center><img src="Figure/JavaLearningNote/35.png" style="zoom:100%;" />
 
 
+### 6.15 接口
+
+接口是一种==公共的规范标准==，java中的接口更多的体现在==对行为的抽象上==。
+
+#### 6.15.1 接口的特点
+
+- 接口用`interface`修饰
+    - `public interface 接口名 {}`
+- 类实现接口用`implements`表示
+    - `public class 类名 implements 接口名 {}`
+- 接口不能实例化
+    - 可用参照多态的方式，通过实现类对象实例化，这叫接口多态。
+- 接口的实现类
+    - 要么重写接口中的所有抽象方法
+    - 要么是抽象类
+
+
+
+#### 6.15.2 接口的成员特点
+
+<center><img src="Figure/JavaLearningNote/36.png" style="zoom:80%;" />
+
+
+
+#### 6.15.3 类和接口的关系
+
+<center><img src="Figure/JavaLearningNote/37.png" style="zoom:100%;" />
+
+
+
+#### 6.15.4 抽象类和接口的区别
+
+<center><img src="Figure/JavaLearningNote/38.png" style="zoom:100%;" />
+
+
+
+**以报警门案例展示抽象类和接口的用法**
+
+```java
+public interface Alarm {
+    void alarm();
+}
+
+public abstract class Door {
+    public abstract void open();
+    public abstract void close();
+}
+
+public class AlarmDoor extends Door implements Alarm {
+    public void open() {
+        //
+    }
+    
+    public void close() {
+        //
+    }
+    
+    public void alarm() {
+        //
+    }
+}
+```
+
+**强调：抽象类是对事物的抽象，而接口是对行为的抽象**
+
+
+
+## 7. java中级进阶
+
+### 7.1 类名&抽象类名&接口名作为形参和返回值
+
+#### 7.1.1 类名作为形参和返回值
+
+- 方法的形参是类名，其实需要的是==类的对象==
+- 方法的返回值是类名，其实返回的是==类的对象==
+
+
+
+#### 7.1.2 抽象类名作为形参和返回值
+
+**注意：抽象类是不能实例化的，因此我们需要采用多态的方法来创建抽象类对象。**
+
+- 方法的形参是抽象类名，其实需要的是==该抽象类的子类的对象==
+- 方法的返回值是抽象类名，其实返回的是==该抽象类的子类的对象==
+
+
+
+#### 7.1.3 接口名作为形参和返回值
+
+**注意：接口是不能实例化的，因此我们需要采用多态的方法来创建接口的实现类对象。**
+
+- 方法的形参是接口名，其实需要的是==该接口的实现类对象==
+- 方法的返回值是接口名，其实返回的是==该接口的实现类对象==
+
+
+
+### 7.2 内部类
+
+#### 7.2.1 概述
+
+概述：内部类就是在一个类里面定义的类
+
+格式：
+
+```java
+public class 类名 {
+    // 外部类
+    public class 类名 {
+        // 内部类
+    }
+}
+```
+
+
+
+内部类访问特点：
+
+- 内部类可以直接访问外部类的成员，包括私有。
+- 外部类要访问内部类的成员，必须创建对象
+
+
+
+#### 7.2.2 成员内部类
+
+按照内部类在类中的定义位置不同，可以分为如下两种形式：
+
+- 在类的成员位置：成员内部类
+- 在类的局部位置：局部内部类
+
+
+
+成员内部类，外界如何创建对象并使用？
+
+- 格式：`外部类名.内部类名 对象名 = 外部类对象.内部类对象`;
+- 范例：`Outer.Inner oi = new Outer().new Inner();`
+
+
+
+**成员内部类常见修饰符：**private
+
+如果我们的内部类不想轻易被任何人访问，可以选择使用private修饰内部类，这样我们就无法通过创建对象的方法来访问，想要访问只需要在外部类中定义一个public修饰的方法，间接调用。这样做的好处就是，我们可以在这个public方法中增加一些判断语句，起到数据安全的作用。
+
+```java
+  public class Outer {
+      private class Inner {
+          public void show() {
+              System.out.println(“密码备份文件”);
+          }
+      }
+      
+      public void method() {
+          if(你是管理员){
+              Inner i = new Inner();
+              i.show();
+          }else {
+              System.out.println(“你没有权限访问”);
+          }
+      }
+  }
+```
+
+下面我们给出一个更加规范的写法
+
+```java
+  public class Outer {
+      private class Inner {
+          public void show() {
+              System.out.println(“密码备份文件”);
+          }
+      }
+      //使用getXxx()获取成员内部类，可以增加校验语句（文中省略）
+      public Inner getInner() {
+          return new Inner();
+      }
+      
+      public static void main(String[] args) {
+          Outer outer = new Outer();
+          Outer.Inner inner = outer.getInner();
+          inner.show();
+      }
+  }
+```
+
+
+
+#### 7.2.3 局部内部类
+
+**特点**
+
+- 局部内部类是在方法中定义的类，所以外界是无法直接使用的，需要在方法内部创建对象并使用。
+- 局部内部类可以直接访问外部类的成员，也可以访问方法内的局部变量
+
+
+
+**格式：**
+
+```java
+ public class Outer {
+      public void method(){
+          class Inner {
+          }
+      }
+  }
+```
+
+
+
+**访问时：**
+
+```java
+  //在局部位置，可以创建内部类对象，通过对象调用和内部类方法
+  public class Outer {
+      private int age = 20;
+      public void method() {
+          final int age2 = 30;
+          class Inner { // 注意：不能加public和private修饰
+              public void show() {
+                  System.out.println(age);
+                  //从内部类中访问方法内变量age2，需要将变量声明为最终类型。
+                  System.out.println(age2);
+              }
+          }
+          
+          Inner i = new Inner();
+          i.show();
+      }
+  }
+```
+
+
+
+#### 7.2.4 匿名内部类、
+
+> 一个没有名字的类，是内部类的简化写法
+
+**前提：**需要存在一个类（具体类或者抽象类均可）或者接口
+
+**格式：**
+
+```java
+  new 类名或者接口名() {
+      重写方法();
+  }
+```
+
+**本质：其实是继承该类或者实现接口的子类匿名==对象==**
+
+**范例：**
+
+```java
+// 接口
+public interface Inter {
+    void show();
+}
+
+// 外部类
+public class Outer {
+  	public void method() {
+        // 匿名内部类
+        new Inter() {
+            @Override
+            public void show() {
+                System.out.println("单次匿名内部类")
+            }
+        }.show;
+        
+        Inter i = new Inter() {
+            @Override
+            public void show() {
+                System.out.println("多次匿名内部类");
+            }
+        };
+        i.show;
+        i.show;
+    }
+}
+```
+
+
+
+**匿名内部类在开发中的使用**
+
+我们在开发的时候，会看到抽象类，或者接口作为参数。
+
+而这个时候，实际需要的是一个子类对象。
+
+如果该方法仅仅调用一次，我们就可以使用匿名内部类的格式简化
+
+
+
+### 7.3 Object类
+
+**Object是类层次结构的根，每个类都可以将Object作为超类。所有的类都直接或间接地继承自该类**
+
+<center><img src="Figure/JavaLearningNote/39.png" style="zoom:120%;" />
+
+
+
+通过快捷键`alt + insert`可以自动生成
+
+方法重写的示例：
+
+```java
+package com.Demo;
+
+import java.util.Objects;
+
+public class Student {
+    private String name;
+    private String age;
+
+    public Student() {}
+
+    public Student(String name, String age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "name='" + name + '\'' +
+                ", age='" + age + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Student student = (Student) o;
+
+        if (!Objects.equals(name, student.name)) return false;
+        return Objects.equals(age, student.age);
+    }
+}
+```
+
+
+
+### 7.4 Arrays
+
+<center><img src="Figure/JavaLearningNote/40.png" style="zoom:80%;" />
+
+
+
+### 7.5 基本类型包装类
+
+#### 7.5.1 概述
+
+将基本数据类型封装成对象的好处在于，可以在对象中定义更多的功能方法操作该数据
+
+常用的操作之一：用于基本数据类型与字符串之间的转换
+
+| 基本数据类型 |  包装类   |
+| :----------: | :-------: |
+|     byte     |   Byte    |
+|    short     |   Short   |
+|     int      |  Integer  |
+|     long     |   Long    |
+|    float     |   Float   |
+|    double    |  Double   |
+|     char     | Character |
+|   boolean    |  Boolean  |
+
+
+
+#### 7.5.2 以Integer为例介绍使用
+
+<center><img src="Figure/JavaLearningNote/41.png" style="zoom:80%;" />
+
+
+#### 7.5.3 自动装箱与自动拆箱
+
+- 装箱：把基本数据类型转换为对应的包装类类型
+- 拆箱：把包装类类型转换为对应的基本类类型
+
+
+
+```java
+public class ArrayDemo {
+    public static void main(String[] args) {
+        Integer i = Integer.valueOf(100); //手动装箱
+        Integer i2 = 100; //自动装箱，编译器底层自动实现Integer.valueOf()操作
+        
+        i2 = i2.intValue() + 200; //i2.intValue()为手动拆箱过程， 加完之后还有个自动装箱过程
+        i2 = i2 + 200; // i2+200为自动拆箱； i2 = i2 + 200是自动装箱。
+    }
+}
+```
 
 
 
 
 
+### 7.6 日期类
+
+#### 7.6.1 构造方法
+
+- `public Date();` 无参构造，以当前时间初始化数据
+- `public Date(long time);` 带参构造，以1970年1月1日，经过time毫秒后的日期初始化
+
+
+
+#### 7.6.2 常用方法
+
+- `public long getTime();` 获取的是日期对象从1970年1月1日00：00：00到现在的毫秒数
+- `public void setTime(long time)` 设置时间，给的是毫秒数
+
+
+
+#### 7.6.3 SimpleDateFormat类概述
+
+<center>
+    <img src="Figure/JavaLearningNote/42.png" style="zoom:80%;" />
+    <br><br>
+    <img src="Figure/JavaLearningNote/43.png" style="zoom:80%;" />
+    <br><br>
+    <img src="Figure/JavaLearningNote/44.png" style="zoom:80%;" />
+</center>
+
+
+
+范例
+
+```java
+import java.util.Date;
+
+public class DateDemo {
+    public static void main(String[] args) throws ParseException {
+        Date d = new Date();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+        String s = sdf.format(d);
+        System.out.println(s);
+
+        String date = "2020/02/21 21:22:22";
+        Date d2 = sdf.parse(date);
+        System.out.println(d2);
+    }
+}
+```
+
+
+
+#### 7.6.4 Calendar类
+
+Calendar类是一个抽象类，它为某一时刻和一组日历字段之间的转换提供了一些方法，并为操作日历字段提供了一些方法
+
+**Calendar创建对象**
+
+```java
+Calendar c = Calendar.getInstance(); // Calendar类通常用此方法创建对象，其原理为多态（向上转型），其日历字段已使用当前的日期和时间初始化
+```
+
+**常用方法**
+
+```java
+/*  
+	public abstract void add(int field,int amount)
+    根据日历的规则，将指定的时间量添加或减去给定的日历字段。
+    例如，要从当前日历的时间减去5天，您可以通过调用以下方法来实现：
+    add(Calendar.DAY_OF_MONTH, -5);
+*/
+
+/*
+	public int get(int field)
+	返回给定日历字段的值。
+*/
+
+/*
+	public final void set(int year,
+                      	int month,
+                      	int date,
+                      	int hourOfDay,
+                      	int minute,
+                      	int second)
+    设置字段中的值YEAR ， MONTH ， DAY_OF_MONTH ， HOUR_OF_DAY ， MINUTE和SECOND
+*/
+import java.util.Calendar;
+
+public class CalendarDemo {
+    public static void main(String[] args) {
+        Calendar c = Calendar.getInstance();
+        c.set(2022, 1, 1);
+        c.add(Calendar.DATE, +5);
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH) + 1; // Calendar里面的月份默认从0开始，也就是说：0代表January， 11代表December
+        int date = c.get(Calendar.DATE);
+        System.out.println(year + "年" + month + "月" + date + "日");
+    }
+}
+
+// OutPut：2022年2月6日
+```
 
 
 
 
 
+### 7.7 异常
+
+#### 7.7.1 概述
+
+<center><img src="Figure/JavaLearningNote/45.png" style="zoom:100%;" />
 
 
 
+#### 7.7.2 JVM对异常的默认处理方案
+
+- 把异常的名称，异常原因以及异常出现的位置等信息输出在控制台上
+- 把程序停止执行
 
 
 
+#### 7.7.3 自定义异常处理
+
+两种方案：
+
+1. try .... catch....
+
+    <center>
+        <img src="Figure/JavaLearningNote/46.png" style="zoom:80%;" />
+        <br>
+        <b>Throwable的成员方法</b>
+        <br>
+    	<img src="Figure/JavaLearningNote/47.png" style="zoom:80%;" />
+    </center>
+
+2. throws
+
+    <center><img src="Figure/JavaLearningNote/48.png" style="zoom:100%;" />
 
 
 
+**自定义异常**
+
+<center><img src="Figure/JavaLearningNote/49.png" style="zoom:100%;" />
 
 
 
+<center><img src="Figure/JavaLearningNote/50.png" style="zoom:100%;" />
+
+**范例**
+
+```java
+public class ScoreException extends Exception{ // 非运行时异常（受检异常）
+    public ScoreException() {
+    }
+
+    public ScoreException(String message) {
+        super(message);
+    }
+}
 
 
+public class Teacher {
+    public void checkScore(int score) throws ScoreException {
+        if (score < 0 || score > 100) {
+            throw new ScoreException("你输入的成绩不在0-100范围内");
+        } else {
+            System.out.println(1);
+        }
+    }
+}
 
 
+public class TeacherTest1 {
+    public static void main(String[] args) throws ScoreException {
+        int i = 120;
+
+        Teacher t = new Teacher();
+        t.checkScore(i);
+        System.out.println("end"); // 使用throws ScoreException 时不会执行这一步
+    }
+}
 
 
+public class TeacherTest2 {
+    public static void main(String[] args) {
+        int i = 120;
+
+        Teacher t = new Teacher();
+        try {
+            t.checkScore(i);
+        } catch(ScoreException e) {
+            e.printStackTrace();
+        }
+        System.out.println("end"); // 使用try catch时，会执行这一步
+    }
+}
+```
 
