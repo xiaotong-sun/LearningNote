@@ -1485,8 +1485,8 @@ public class AlarmDoor extends Door implements Alarm {
 
 #### 7.1.1 类名作为形参和返回值
 
-- 方法的形参是类名，其实需要的是==类的对象==
-- 方法的返回值是类名，其实返回的是==类的对象==
+- 方法的形参是类名，其实需要的是类的对象
+- 方法的返回值是类名，其实返回的是类的对象
 
 
 
@@ -1643,7 +1643,7 @@ public class 类名 {
 
 
 
-#### 7.2.4 匿名内部类、
+#### 7.2.4 匿名内部类
 
 > 一个没有名字的类，是内部类的简化写法
 
@@ -2021,4 +2021,855 @@ public class TeacherTest2 {
     }
 }
 ```
+
+
+
+### 7.8 集合
+
+#### 7.8.1 集合体系结构
+
+<center> <img src="C:\Users\86131\Desktop\学习笔记\Figure\JavaLearningNote\51.png" style="zoom:80%;" />
+
+#### 7.8.2 Collection集合概述和使用
+
+- Collecton是单列集合的顶层接口，他表示一组对象，这些对象也称为Collection的元素。
+- JDK不提供此接口的任何直接实现，它提供更具体的子接口（如Set和List）实现。
+
+
+
+创建Collection集合对象
+
+```java
+public class CollectonDemo01 {
+    public static void main(String[] args) {
+        Collection<String> c = new ArrayList<String>();
+        c.add("hello");
+        c.add("world");
+        c.add("java");
+        
+        // 迭代器遍历集合元素
+        Iterator<String> it = c.iterator(); //创建迭代器对象
+        while (it.hasNext()) {
+            System.out.println(it.next());
+        }
+    }
+}
+```
+
+
+
+#### 7.8.3 List集合概述和使用
+
+- List是有序集合，可以通过整数索引访问元素，并搜索列表中的元素
+- 与Set集合不同，列表通常允许重复元素
+
+
+
+创建List集合对象
+
+```java
+public class ListDemo01 {
+    public static void main(String[] args) {
+        List<String> c = new ArrayList<String>();
+        c.add("hello");
+        c.add("world");
+        c.add("java");
+        
+        // 迭代器遍历集合元素
+        Iterator<String> it = c.iterator(); //创建迭代器对象
+        while (it.hasNext()) {
+            System.out.println(it.next());
+        }
+        
+        // 并发修改异常
+        Iterator<String> it = c.iterator();
+        while (it.hasNext()) {
+            String s = it.next();
+            if (s.equals("world")) {
+                c.add("javaee");   // 这个操作导致：modCount和expectedModCount不相等
+            }
+            System.out.println(s);
+        }
+        
+        // list迭代器，不会产生并发修改异常
+        ListIterator<String> lit = list.listIterator();
+        while (lit.hasNext()) {
+            String s = lit.next();
+            if (s.equals("world")) {
+                lit.add("javaee");
+            }
+        }
+    }
+}
+```
+
+
+
+#### 7.8.4 增强for循环
+
+- 内部原理是一个Iterator迭代器
+- 实现iterator接口的类允许其对象成为增强型for语句的目标
+
+
+
+范例
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+public class CollectionDemo01 {
+    public static void main(String[] args) {
+        int[] arr = {1, 2, 3, 4, 5, 6};
+        for (int i : arr) {
+            System.out.println(i);
+        }
+
+        List<String> list = new ArrayList<>();
+        list.add("hello");
+        list.add("world");
+        list.add("java");
+        for (String s: list) {
+            System.out.println(s);
+        }
+    }
+}
+
+// 注意增强for循环也会导致并发修改异常，因为其底层原理为iterator迭代器
+```
+
+
+
+#### 7.8.5 List集合子类特点
+
+list集合常用子类：`ArrayList, LinkedList`
+
+- ArrayList：底层数据结构是数组，查询快，增删慢
+- LinkedList：底层数据结构是链表，查询慢，增删快
+
+
+
+#### 7.8.6 Set集合概述和特点
+
+- set集合不包含重复元素
+- 没有带索引的方法，所以不能使用普通for循环遍历
+
+
+
+范例
+
+```java
+import java.util.*;
+
+public class CollectionDemo01 {
+    public static void main(String[] args) {
+        Set<String> set = new HashSet<>();
+
+        set.add("hello");
+        set.add("world");
+        set.add("java");
+
+        for(String s : set) {
+            System.out.println(s);
+        }
+    }
+}
+```
+
+
+
+**哈希值	**：是JDK根据对象的地址或者字符串或者数字算出来的int类型的数值。
+
+
+
+**HashSet集合保证元素唯一性的方法分析：**
+
+<center>
+    <img src="Figure/JavaLearningNote/52.png" style="zoom:110%;" />
+    <br><br>
+    <img src="Figure/JavaLearningNote/53.png" style="zoom:110%;" />
+
+
+
+**案例**
+
+<center> <img src="Figure/JavaLearningNote/54.png" style="zoom:80%;" />
+
+在这个案例中，简单的按照思路进行编程是不可行的，因为我们在创建学生对象时，即使学生成员变量的值相同，也是new出来的不同的对象，因此在加入Set时会加入。
+
+为了解决这个问题，我们需要在Student类中==重写hashCode()和equals()方法==。在IDEA中，通过`alt + insert` 快捷键可以自动重写(一路next即可)。下面我们简单看一下重写后的代码：
+
+```java
+import java.util.Objects;
+
+public class Student {
+    private String name;
+    private String age;
+
+    public Student() {}
+
+    public Student(String name, String age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getAge() {
+        return age;
+    }
+    
+     @Override
+    /*
+    	重写hashCode()方法，使得具有相同成员变量值的Student对象的hashCode相等，但此时还不能满足要求。
+    */
+    public int hashCode() {
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (age != null ? age.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    /*
+    	重写equals()方法，常规的equals()方法只是比较两个对象的地址值是否相等，因此不满足我们的要求，需要重写使得能够比较两个Student对象的各个成员变量值是否相等，此时就可以满足要求了。
+    */
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Student student = (Student) o;
+
+        if (!Objects.equals(name, student.name)) return false;
+        return Objects.equals(age, student.age);
+    }
+}
+
+```
+
+
+
+#### 7.8.7 TreeSet集合概述和特点
+
+**TreeSet集合特点：**
+
+- 集合元素有序，这里的顺序不是指存储和取出的顺序，而是按照一定的规则进行排序，具体的排序方式取决于构造方法
+    - TreeSet(): 根据元素的自然顺序进行排序
+    - TreeSet(Comparator comparator): 根据指定的比较器进行排序
+- 没有带索引的方法，所以不能使用普通for循环遍历
+- 由于是Set集合，所以不包含重复元素
+
+
+
+<center> <img src="Figure/JavaLearningNote/55.png" style="zoom:80%;" />
+
+```java
+public class Student implements Comparable<Student> {
+    private String name;
+    private int age;
+
+    public  Student() {}
+
+    public Student(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+
+    @Override
+    public int compareTo(Student o) {
+        int num = this.age - o.age; // 按照年龄升序排序
+        // int num = o.age - this.age; // 按照年龄降序排序，可以成将上面的数取相反数，则升序变降序
+        return num == 0 ? this.name.compareTo(o.name) : num;
+    }
+}
+
+import java.util.TreeSet;
+
+public class TreeSetDemo {
+    public static void main(String[] args) {
+        TreeSet<Student> tr = new TreeSet<>();
+
+        Student s1 = new Student("xishi", 20);
+        Student s2 = new Student("diaochan", 19);
+        Student s3 = new Student("wangzhaojun", 32);
+        Student s4 = new Student("yangyuhuan", 16);
+
+        tr.add(s1);
+        tr.add(s2);
+        tr.add(s3);
+        tr.add(s4);
+
+        for (Student s : tr) {
+            System.out.println(s.getName() + ":" + s.getAge());
+        }
+    }
+}
+```
+
+
+
+<center> <img src="Figure/JavaLearningNote/56.png" style="zoom:80%;" />
+
+```java
+import java.util.Comparator;
+import java.util.TreeSet;
+
+public class TreeSetDemo {
+    public static void main(String[] args) {
+        TreeSet<Student> tr = new TreeSet<>(new Comparator<>() {
+            @Override
+            public int compare(Student o1, Student o2) {
+                // o1->this  o2->o
+                int num = o1.getAge() - o2.getAge();
+                return num == 0 ? o1.getName().compareTo(o2.getName()) : num;
+            }
+        });  // 使用匿名内部类的方法生成比较器。
+    }
+}
+
+```
+
+
+
+### 7.9 泛型
+
+<center> <img src="Figure/JavaLearningNote/57.png" style="zoom:100%;" />
+
+
+#### 7.9.1 泛型类
+
+**格式**：修饰符 class 类名<类型> { }
+
+**范例：** `public class Generic<T> { }`
+
+
+
+```java
+public class Generic<T> {
+    private T t;
+
+    public T getT() {
+        return t;
+    }
+
+    public void setT(T t) {
+        this.t = t;
+    }
+}
+```
+
+
+
+#### 7.9.2 泛型方法
+
+<center> <img src="Figure/JavaLearningNote/58.png" style="zoom:80%;" />
+
+
+
+```java
+public class GenericMethod {
+    public <T> void show(T t) {
+        System.out.println(t);
+    }
+}
+```
+
+
+
+#### 7.9.3 泛型接口
+
+<center> <img src="Figure/JavaLearningNote/59.png" style="zoom:80%;" />
+
+```java
+public interface Generic<T> {
+    void show(T t);
+}
+
+public class GenericImpl<T> implements Generic<T> {
+    @Override
+    public void show(T t) {
+        System.out.println(t);
+    }
+}
+```
+
+
+
+#### 7.9.4 类型通配符
+
+<center> <img src="Figure/JavaLearningNote/60.png" style="zoom:100%;" />
+
+
+
+```java
+public class GenericDeom {
+    public static void main(String[] args) {
+        List<? extends Number> list1 = new ArrayList<Number>();
+        List<? extends Number> list2 = new ArrayList<Integer>();
+        List<? super Number> list3 = new ArrayList<Object>();
+        List<? super Number> list4 = new ArrayList<Number>();
+    }
+}
+```
+
+
+
+应用范例
+
+```java
+public class GenericDeom {
+    public static void printAllObject(List<?> list) {
+        for (Object i : list) {
+            System.out.println(i);
+        }
+    }
+
+    public static void main(String[] args) {
+        List<String> list1 = new ArrayList<>();
+        list1.add("你好");
+        printAllObject(list1);
+
+        List<Integer> list2 = new ArrayList<>();
+        list2.add(200);
+        printAllObject(list2);
+    }
+}
+```
+
+
+
+#### 7.9.5 可变参数
+
+<center> <img src="Figure/JavaLearningNote/61.png" style="zoom:80%;" />
+
+```java
+public class GenericDeom {
+    public static void main(String[] args) {
+        sum(10, 20, 30);
+        sum(10, 20);
+    }
+
+    public static void sum(int ... a) { // 可变参数
+        int sum = 0;
+        for (int i : a) {
+            sum += i;
+        }
+        System.out.println(sum);
+    }
+    
+    public static void sum2(int a, int ... b) { // 当参数为多个参数并且包含可变参数时，可变参数要放在最后面。
+        int sum = 0;
+        for (int i : b) {
+            sum += i;
+        }
+        System.out.println(sum);
+    }
+}
+```
+
+
+
+**可变参数的使用**
+<center> <img src="Figure/JavaLearningNote/62.png" style="zoom:80%;" />
+
+
+
+
+
+### 7.10 Map
+
+
+
+#### 7.10.1 Map集合概述和使用
+
+- `Interface Map<K, V>`, k: 键的类型， V：值的类型
+- 将键映射到值的对象，不能包含重复的键，每一个键可以映射最多一个值。
+
+```java
+import java.util.HashMap;
+import java.util.Map;
+
+public class MapDemo {
+    public static void main(String[] args) {
+        Map<String, String> map = new HashMap<>();
+
+//        V put(K key, V value)将指定的值与该映射中的指定键相关联（可选操作）。 
+//        如果映射先前包含了密钥的映射，则旧值将被指定的值替换。
+        map.put("1", "张三");
+        map.put("2", "李四");
+        map.put("3", "王五");
+
+        System.out.println(map);
+    }
+}
+```
+
+
+
+#### 7.10.2 Map集合的基本功能
+
+<center> <img src="Figure/JavaLearningNote/63.png" style="zoom:80%;" />
+
+
+
+```java
+import java.util.HashMap;
+import java.util.Map;
+
+public class MapDemo {
+    public static void main(String[] args) {
+        Map<String, String> map = new HashMap<>();
+
+//        V put(K key, V value)将指定的值与该映射中的指定键相关联（可选操作）。
+//        如果映射先前包含了密钥的映射，则旧值将被指定的值替换。
+        map.put("1", "张三");
+        map.put("2", "李四");
+        map.put("3", "王五");
+
+        System.out.println(map);
+
+        System.out.println(map.remove("1"));
+
+        System.out.println(map.containsKey("1"));
+        System.out.println(map.containsValue("李四"));
+
+        System.out.println(map.isEmpty());
+
+        System.out.println(map.size());
+    }
+}
+
+
+/* output
+	{1=张三, 2=李四, 3=王五}
+	张三
+	false
+	true
+	false
+	2
+*/
+```
+
+
+
+#### 7.10.3 Map集合的获取功能
+
+<center> <img src="Figure/JavaLearningNote/64.png" style="zoom:80%;" />
+
+```java
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
+public class MapDemo {
+    public static void main(String[] args) {
+        Map<String, String> map = new HashMap<>();
+
+        map.put("1", "张三");
+        map.put("2", "李四");
+        map.put("3", "王五");
+
+        System.out.println(map.get("2")); // 根据键获取值, 如果键或值不存在则返回null
+
+        Set<String> ke = map.keySet(); // 获取所有键的集合
+        for (String s : ke) {
+            System.out.println(s);
+        }
+
+        Collection<String> values = map.values(); // 获取所有值的集合
+        for (String s : values) {
+            System.out.println(s);
+        }
+        
+        Set<Map.Entry<String, String>> entries = map.entrySet();
+        for (Map.Entry<String, String> s : entries) {
+            System.out.println(s);
+        }
+    }
+}
+
+/*
+output:
+李四
+
+1
+2
+3
+
+张三
+李四
+王五
+
+1=张三
+2=李四
+3=王五
+*/
+```
+
+
+
+#### 7.10.4 Map集合的遍历
+
+```java
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
+public class MapDemo {
+    public static void main(String[] args) {
+        Map<String, String> map = new HashMap<>();
+
+        map.put("1", "张三");
+        map.put("2", "李四");
+        map.put("3", "王五");
+
+        // 方式一
+        Set<String> strings = map.keySet();
+        for (String s : strings) {
+            System.out.println(map.get(s));
+        }
+
+        // 方式二
+        Set<Map.Entry<String, String>> entries = map.entrySet();
+        for (Map.Entry<String, String> s : entries) {
+            System.out.println(s.getKey() + "," + s.getValue());
+        }
+    }
+}
+
+/* output
+张三
+李四
+王五
+
+1,张三
+2,李四
+3,王五
+*/
+```
+
+
+
+
+
+#### 7.10.5 案例
+
+<center> <img src="Figure/JavaLearningNote/65.png" style="zoom:80%;" />
+
+```java
+// 案例解析：这个案例的关键在于如何判断学生对象是否为同一个对象。
+// 由于我们在7.8.6中介绍了HashSet的一个案例，而HashMap和HashSet类似，因此我们考虑重写hashcode()和equals()方法。
+
+import java.util.Objects;
+
+public class Student {
+    private String name;
+    private int age;
+
+    public Student() {}
+
+    public Student(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Student student = (Student) o;
+
+        if (age != student.age) return false;
+        return Objects.equals(name, student.name);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + age;
+        return result;
+    }
+}
+
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
+public class MapDemo {
+    public static void main(String[] args) {
+        Map<Student, String> map = new HashMap<>();
+        Student s1 = new Student("张三", 20);
+        Student s2 = new Student("李四", 21);
+        Student s3 = new Student("王五", 22);
+        Student s4 = new Student("王五", 23);
+        Student s5 = new Student("王五", 23); // 在本案例中s4和s5为同一个对象
+
+        map.put(s1, "上海");
+        map.put(s2, "北京");
+        map.put(s3, "天津");
+        map.put(s4, "深圳");
+        map.put(s5, "威海");
+
+        Set<Map.Entry<Student, String>> entries = map.entrySet();
+        for (Map.Entry<Student, String> s : entries) {
+            Student stu = s.getKey();
+            String add = s.getValue();
+            System.out.println(stu.getName() + "," + stu.getAge() + "," + add);
+        }
+    }
+}
+
+/*ouput
+张三,20,上海
+王五,23,威海
+李四,21,北京
+王五,22,天津
+*/
+```
+
+
+
+<center> <img src="Figure/JavaLearningNote/66.png" style="zoom:80%;" />
+
+```java
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Set;
+
+public class MapDemo {
+    public static void main(String[] args) {
+        ArrayList<HashMap<String, String>> list = new ArrayList<>();
+        HashMap<String, String> hm1 = new HashMap<>();
+        hm1.put("1", "zhang");
+        hm1.put("2", "wang");
+
+        HashMap<String, String> hm2 = new HashMap<>();
+        hm2.put("3", "li");
+        hm2.put("4", "sun");
+
+        list.add(hm1);
+        list.add(hm2);
+
+        for (HashMap<String, String> hm : list) {
+            Set<String> strings = hm.keySet();
+            for (String s : strings) {
+                System.out.println(s + "," + hm.get(s));
+            }
+        }
+    }
+}
+
+/* output
+1,zhang
+2,wang
+3,li
+4,sun
+*/
+```
+
+
+
+<center> <img src="Figure/JavaLearningNote/67.png" style="zoom:80%;" />
+
+```java
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Set;
+
+public class MapDemo {
+    public static void main(String[] args) {
+        HashMap<String, ArrayList<String>> map = new HashMap<>();
+        ArrayList<String> list1 = new ArrayList<>();
+        list1.add("yi");
+        list1.add("er");
+        list1.add("san");
+
+        ArrayList<String> list2 = new ArrayList<>();
+        list2.add("si");
+        list2.add("wu");
+        list2.add("liu");
+
+        map.put("1", list1);
+        map.put("2", list2);
+
+        Set<String> strings = map.keySet();
+        for (String s : strings) {
+            ArrayList<String> list = map.get(s);
+            for (String ss : list) {
+                System.out.println(s + "," + ss);
+            }
+        }
+    }
+}
+
+```
+
+
+
+
+
+### 7.11 Collections
+
+#### 7.11.1 概述和使用
+
+<center> <img src="Figure/JavaLearningNote/68.png" style="zoom:80%;" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
