@@ -2258,7 +2258,15 @@ public class Student {
 
 
 
-#### 7.8.7 TreeSet集合概述和特点
+#### 7.8.7 LinkedHashSet集合特点
+
+- 由哈希表和链表实现Set接口，具有可预测的迭代次序
+- 由链表保证元素有序，保证元素的存储和取出顺序是一致的
+- 由哈希表保证元素唯一，没有重复元素。
+
+
+
+#### 7.8.8 TreeSet集合概述和特点
 
 **TreeSet集合特点：**
 
@@ -2303,6 +2311,11 @@ public class Student implements Comparable<Student> {
 
     @Override
     public int compareTo(Student o) {
+        // this.age是这一个，o.age是上一个
+        // 如果return 0， 说明元素是重复的，不会添加到集合
+        // 如果return 正数， 这一个大于上一个，升序排序
+        // 如果return 负数， 说明这一个小于上一个，需要把这个放在上面，倒序排序
+        
         int num = this.age - o.age; // 按照年龄升序排序
         // int num = o.age - this.age; // 按照年龄降序排序，可以成将上面的数取相反数，则升序变降序
         return num == 0 ? this.name.compareTo(o.name) : num;
@@ -2858,6 +2871,540 @@ public class MapDemo {
 #### 7.11.1 概述和使用
 
 <center> <img src="Figure/JavaLearningNote/68.png" style="zoom:80%;" />
+
+```java
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class CollectionsDemo {
+    public static void main(String[] args) {
+        List<Integer> list = new ArrayList<>();
+
+        list.add(10);
+        list.add(20);
+        list.add(30);
+        list.add(50);
+        list.add(40);
+
+        System.out.println(list);
+
+        Collections.sort(list);    // 升序排序
+        System.out.println(list);
+
+        Collections.reverse(list); // 反转指定列表中的元素顺序
+        System.out.println(list);
+
+        Collections.shuffle(list); // 使用默认的随机源随机排列指定的列表
+        System.out.println(list);
+    }
+}
+
+```
+
+
+
+#### 7.11.2 案例
+
+<center> <img src="Figure/JavaLearningNote/69.png" style="zoom:80%;" />
+
+==对比7.8.7==
+
+**方法一：** Student类实现Comparable接口并重写compareTo()方法
+
+```java
+import java.util.Comparator;
+
+public class Student implements Comparable<Student> {
+    private String name;
+    private int age;
+
+    public Student() {
+    }
+
+    public Student(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+
+    @Override
+    public int compareTo(Student o) {
+        int num = age - o.age;
+        return num == 0 ? name.compareTo(o.name) : num;
+    }
+}
+
+
+import java.util.ArrayList;
+import java.util.Collections;
+
+public class CollectionsDemo {
+    public static void main(String[] args) {
+        ArrayList<Student> list = new ArrayList<>();
+
+        Student s1 = new Student("Bob", 20);
+        Student s2 = new Student("Jack", 21);
+        Student s3 = new Student("Jim", 19);
+        Student s4 = new Student("Rose", 20);
+
+        list.add(s1);
+        list.add(s2);
+        list.add(s3);
+        list.add(s4);
+
+        Collections.sort(list);
+
+        for (Student s : list) {
+            System.out.println(s.getName() + "," + s.getAge());
+        }
+    }
+}
+```
+
+
+
+**方法二：** 使用`public static <T> void sort(List<T> list, Comparator<? super T> c)`方法
+
+```java
+package com.Collections;
+
+public class Student {
+    private String name;
+    private int age;
+
+    public Student() {
+    }
+
+    public Student(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+}
+
+
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
+public class CollectionsDemo {
+    public static void main(String[] args) {
+        ArrayList<Student> list = new ArrayList<>();
+
+        Student s1 = new Student("Bob", 20);
+        Student s2 = new Student("Jack", 21);
+        Student s3 = new Student("Jim", 19);
+        Student s4 = new Student("Rose", 20);
+
+        list.add(s1);
+        list.add(s2);
+        list.add(s3);
+        list.add(s4);
+
+        Collections.sort(list, new Comparator<Student>() {
+            @Override
+            public int compare(Student o1, Student o2) {
+                int num = o1.getAge() - o2.getAge();
+                return num == 0 ? o1.getName().compareTo(o2.getName()) : num;
+            }
+        });
+
+        for (Student s : list) {
+            System.out.println(s.getName() + "," + s.getAge());
+        }
+    }
+}
+```
+
+
+
+<center> <img src="Figure/JavaLearningNote/70.png" style="zoom:80%;" />
+
+
+
+```java
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.TreeSet;
+
+public class CollectionsDemo {
+    public static void main(String[] args) {
+        HashMap<Integer, String> box = new HashMap<>();
+        ArrayList<Integer> order = new ArrayList<>();
+        String[] colors = {"♦", "♣", "♥", "♠"};
+        String[] numbers = {"3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A", "2"};
+        int index = 0;
+
+        for (String number : numbers) {
+             for (String color : colors) {
+                box.put(index, color + number);
+                order.add(index);
+                index ++;
+            }
+        }
+        box.put(index, "小王");
+        order.add(index);
+        index ++;
+        box.put(index, "大王");
+        order.add(index);
+
+        Collections.shuffle(order);
+
+        TreeSet<Integer> player1 = new TreeSet<>();
+        TreeSet<Integer> player2 = new TreeSet<>();
+        TreeSet<Integer> player3 = new TreeSet<>();
+        TreeSet<Integer> dp = new TreeSet<>();
+
+
+        for (int i = 0; i < order.size(); i ++) {
+            if (i >= order.size() - 3) {
+                dp.add(order.get(i));
+            } else if (i % 3 == 0) {
+                player1.add(order.get(i));
+            } else if (i % 3 == 1) {
+                player2.add(order.get(i));
+            } else {
+                player3.add(order.get(i));
+            }
+        }
+
+        lookCard("player1", player1, box);
+        lookCard("player2", player2, box);
+        lookCard("player3", player3, box);
+        lookCard("dp", dp, box);
+    }
+
+    public static void lookCard(String name, TreeSet<Integer> player, HashMap<Integer, String> box) {
+        System.out.print(name + ":");
+        for (Integer i : player) {
+            System.out.print(box.get(i) + " ");
+        }
+        System.out.println();
+    }
+}
+```
+
+
+
+
+
+### 7.12 File
+
+#### 7.12.1 File类概述和构造方法
+
+<center> <img src="Figure/JavaLearningNote/71.png" style="zoom:100%;" />
+
+**这三个构造方法在实际应用中是等效的。**
+
+
+
+#### 7.12.2 File类创建功能
+
+- `public boolean creatNewFile()`: 当具有该名称的文件不存在时，创建一个由该抽象路径命名的新空文件
+    - 如果文件不存在，就创建文件，并返回true
+    - 如果文件存在，就不创建文件，并返回false
+- `public boolean mkdir()`： 创建由此抽象路径命名的目录
+    - 如果目录不存在，就创建目录，并返回true
+    - 如果目录存在，就不创建目录，并返回false
+- `public boolean mkdirs()`: 创建由此抽象路径命名的目录，包括任何必须但不存在的父目录
+
+
+
+#### 7.12.3 File类判断和获取功能
+
+<center><img src="Figure/JavaLearningNote/72.png" style="zoom:80%;" />
+
+
+#### 7.12.4 File类删除功能
+
+<center> <img src="Figure/JavaLearningNote/73.png" style="zoom:110%;" />
+
+
+
+
+### 7.13 IO流
+
+#### 7.13.1 IO流概述和分类
+
+<center> <img src="Figure/JavaLearningNote/74.png" style="zoom:80%;" />
+
+
+
+#### 7.13.2 字节流写数据
+
+<center> <img src="Figure/JavaLearningNote/75.png" style="zoom:80%;" />
+
+```java
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+public class FileDemo {
+    public static void main(String[] args) throws IOException {
+        FileOutputStream fos = new FileOutputStream("F:\\myFile\\fos.txt");
+        /*
+        * 做了3件事
+        *   1.调用系统功能创建文件
+        *   2.创建了字节流输出对象
+        *   3.让字节流输出对象指向创建的文件
+        */
+        fos.write(97);
+        fos.close();
+    }
+}
+
+```
+
+
+
+<center><img src="Figure/JavaLearningNote/76.png" style="zoom:80%;" />
+
+```java
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+
+public class FileDemo {
+    public static void main(String[] args) throws IOException {
+        FileOutputStream fos = new FileOutputStream("F:\\myFile\\fos.txt");
+        /*
+        * 做了3件事
+        *   1.调用系统功能创建文件
+        *   2.创建了字节流输出对象
+        *   3.让字节流输出对象指向创建的文件
+        */
+        byte[] bytes = "hello world".getBytes(StandardCharsets.UTF_8);
+        fos.write(bytes, 2, 3);
+        fos.close();
+    }
+}
+
+```
+
+
+
+<center> <img src="Figure/JavaLearningNote/77.png" style="zoom:80%;" />
+
+
+
+**字节流写数据加异常处理**
+
+```java
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+
+public class FileDemo {
+    public static void main(String[] args) {
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream("H:\\myFile\\fos.txt", true);
+            for (int i = 0; i < 10; i ++) {
+                fos.write("hello\n".getBytes(StandardCharsets.UTF_8));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (fos != null) {
+                try {
+                    fos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+}
+```
+
+
+
+
+
+#### 7.13.3 字节流读数据
+
+<center>
+    <b><font size = 6 color = "green">一次读入一个字节数据 （对中文数据不友好）</font></b>
+    <br>
+    <img src="Figure/JavaLearningNote/78.png" style="zoom:80%;" />
+
+```java
+import java.io.FileInputStream;
+import java.io.IOException;
+
+public class FileDemo {
+    public static void main(String[] args) throws IOException {
+        FileInputStream fis = new FileInputStream("F:\\myFile\\fos.txt");
+        // 如果读取数据时到达文件末尾，则返回的是-1
+        
+//        int by = fis.read();
+//        while (by != -1) {
+//            System.out.println((char) by);
+//            by = fis.read();
+//        }
+        // 这种读数据方法比较麻烦，我们通常采用下面的格式读取数据。
+        
+        int by;
+        while ((by = fis.read()) != -1) {
+            System.out.print((char) by);
+        }
+        fis.close();
+    }
+}
+
+// 此方法缺点在于读取大文件时，速度太慢。
+```
+
+
+
+<center>
+    <b><font size = 6 color = "green">一次读入一个字节数组数据</font></b>
+</center>
+
+```java
+import java.io.*;
+
+public class FileDemo {
+    public static void main(String[] args) throws IOException, FileNotFoundException {
+        FileInputStream fis = new FileInputStream("F:\\myFile\\fos.txt");
+
+        byte[] bytes = new byte[1024];
+        int len; //len不表示字符数组的长度，而是表示实际读到的字符的长度
+        while ((len = fis.read(bytes)) != -1) {
+            System.out.print(new String(bytes, 0, len));
+        }
+
+        fis.close();
+    }
+}
+
+// 读取是通过创建一个字节数组，读取一个字节数组的大小再写入程序中，此方法的优势在于速度快。
+```
+
+
+
+#### 7.13.4 字节流复制文本文件
+
+```java
+import java.io.*;
+
+public class FileDemo {
+    public static void main(String[] args) throws IOException, FileNotFoundException {
+        FileInputStream fis = new FileInputStream("F:\\myFile\\fos.txt");
+        FileOutputStream fos = new FileOutputStream("F:\\myFile\\fis.txt");
+		
+        // 一次读入一个字节
+        int by;
+        while ((by = fis.read()) != -1) {
+            fos.write(by);
+        }
+		
+        // 一次读入一个字节数组
+        byte[] by = new byte[1024];
+        int len;
+        while ((len = fis.read(by)) != -1) {
+            fos.write(by, 0, len);
+        }
+        
+        fis.close();
+        fos.close();
+    }
+}
+
+/*
+	字节流复制图片的操作跟这个是一样的
+*/
+```
+
+
+
+#### 7.13.5 字节缓冲流
+
+<center> <img src="Figure/JavaLearningNote/79.png" style="zoom:100%;" />
+
+==当读取数据量大的文件时，读取的速度会很慢，很影响我们程序的效率，Java中提高了一套缓冲流，它的存在，可提高IO流的读写速度。==
+
+缓冲流，根据流的分类分成字节缓冲流与字符缓冲流。
+字节缓冲流：
+
+1. 字节缓冲输出流 BufferedOutputStream
+
+2. 字节缓冲输入流 BufferedInputStream
+
+它们的内部都包含了一个缓冲区，通过缓冲区读写，就可以提高了IO流的读写速度。
+
+```java
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+
+public class FileDemo {
+    public static void main(String[] args) throws IOException {
+        // 字节缓冲输出流
+        FileOutputStream fos = new FileOutputStream("F:\\myFile\\bos.txt");
+        BufferedOutputStream bos = new BufferedOutputStream(fos);
+        bos.write("hellodsaf\n".getBytes(StandardCharsets.UTF_8));
+        bos.write("worldasdf\n".getBytes(StandardCharsets.UTF_8));
+
+        bos.close();
+        fos.close();
+        
+        // 字节缓冲输入流
+        FileInputStream fis = new FileInputStream("F:\\myFile\\bos.txt");
+        BufferedInputStream bis = new BufferedInputStream(fis);
+        
+        // 单字节读取
+        int by;
+        while ((by = bis.read()) != -1) {
+            System.out.print((char) by);
+        }
+        
+        // 字节数组读取
+        byte[] bytes = new byte[1024];
+        int len;
+        while ((len = bis.read(bytes)) != -1) {
+            System.out.println(new String(bytes, 0, len));
+        }
+
+        fis.close();
+        bis.close();
+    }
+}
+```
+
+
 
 
 
