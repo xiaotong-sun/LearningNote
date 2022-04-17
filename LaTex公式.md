@@ -1,0 +1,210 @@
+
+
+
+
+#### Markdown支持的公式
+
+| 描述       | 语法              | 示例                |
+| ---------- | ----------------- | ------------------- |
+| 下划线     | \underline{Hello} | $\underline{Hello}$ |
+| 不等于     | \neq              | $\neq$              |
+| 低省略号   | \dots             | $\dots$             |
+| 高省略号   | \cdots            | $\cdots$            |
+| 右属于     | \in               | $\in$               |
+| 左属于     | \ni               | $\ni$               |
+| 不属于     | \notin            | $\notin$            |
+| 右真包含   | \subset           | $\subset$           |
+| 左真包含   | \supset           | $\supset$           |
+| 右非真包含 | \not\subset       | $\not\subset$       |
+| 左包含     | \subseteq         | $\subseteq$         |
+| 右包含     | \supseteq         | $\supseteq$         |
+| 转置       | A^\top            | $A^\top$            |
+| 单字上标   | x^2               | $x^2$               |
+| 导数       | x^{'}             | $x^{'}$             |
+| 多字上标   | x^{-1}            | $x^{-1}$            |
+| 单字下标   | O_2               | $O_2$               |
+| 多字下标   | x_{12}            | $x_{12}$            |
+| 加         | +                 | $+$                 |
+| 减         | -                 | $-$                 |
+| 乘         | \times            | $\times$            |
+| 除         | \div              | $\div$              |
+| 绝对值     | \|-x\|            | $|-x|$              |
+| 否定       | \neg              | $\neg$              |
+| 合取       | \wedge            | $\wedge$            |
+| 析取       | \vee              | $\vee$              |
+| 异或       | \oplus            | $\oplus$            |
+| 空集       | \varnothing       | $\varnothing$       |
+| 右双箭头   | \Rightarrow       | $\Rightarrow$       |
+| 左双箭头   | \Leftarrow        | $\Leftarrow$        |
+| 右单箭头   | \to               | $\to$               |
+| 左单箭头   | \gets             | $\gets$             |
+| 双单箭头   | \leftrightarrow   | $\leftrightarrow$   |
+| 右复合     | \circ             | $\circ$             |
+| 任意       | \forall           | $\forall$           |
+| 存在       | \exists           | $\exists$           |
+| 小分式     | \frac{1}{2}       | $\frac{1}{2}$       |
+| 大分式     | \dfrac{1}{x+2}    | $\dfrac{1}{x+2}$    |
+| lambda     | \lambda           | $\lambda$           |
+| Lambda     | \Lambda           | $\Lambda$           |
+| 根号       | \sqrt{2}          | $\sqrt{2}$          |
+| 多次根号   | \sqrt[n]{x}       | $ \sqrt[n]{x}$      |
+| 等价关系   | \sim              | $\sim$              |
+| 恒等于号   | \equiv            | $\equiv$            |
+| 取模符号   | \pmod{3}          | $\pmod{3}$          |
+| 并集       | \cup              | $\cup$              |
+| 交集       | \cap              | $\cap$              |
+| 偏序关系   | \preccurlyeq      | $\preccurlyeq$      |
+| 等价       | \\Leftrightarrow  | $\Leftrightarrow$   |
+| 小于关系   | \prec             | $\prec$             |
+| 否定       | \neg              | $\neg$              |
+| $\Delta$   | \\Delta           | $\Delta$            |
+| 向量       | \\vec{v}          | $\vec{v}$           |
+| 上横线(小) | \bar{24}          | $\bar{24}$          |
+| 上横线(中) | \overline{24}     | $\overline{24}$     |
+| 上横线(大) | \over{24}         | $\over{24}$         |
+| 同构关系   | \cong             | $\cong$             |
+| 小于等于   | \le               | $\le$               |
+| 大于等于   | \ge               | $\ge$               |
+| 卡帕       | \kappa            | $\kappa$            |
+| 大写伽马   | \Gamma            | $\Gamma$            |
+| $\phi$     | \phi              | $\phi$              |
+| $\varphi$  | \varphi           | $\varphi$           |
+| 积分       | \int              | $\int$              |
+| 求和       | \sum              | $\sum$              |
+| 求积       | \prod             | $\prod$             |
+|            |                   |                     |
+
+
+
+---
+
+
+
+#### 方程组大括号
+
+$$
+\left\{
+\begin{align}
+x+y=3\\
+x-y=2
+\end{align}
+\right.
+$$
+
+```latex
+\left\{
+\begin{align}
+x+y=3\\
+x-y=2
+\end{align}
+\right.
+```
+
+
+
+---
+
+
+
+#### 矩阵
+
+$$
+\left[
+ \begin{matrix}
+   1 & 2 & 3 \\
+   4 & 5 & 6 \\
+   7 & 8 & 9
+  \end{matrix}
+  \right]
+$$
+
+```latex
+\left[
+\begin{matrix}
+1 & 2 & 3 \\
+4 & 5 & 6 \\
+7 & 8 & 9
+\end{matrix}
+\right]
+```
+
+
+
+---
+
+
+
+#### 空格
+
+LaTex默认是省略空格，要输入空格就得自己输入命令，mu是一个数学单位。
+
+| 效果   | 说明                     | 语法              |
+| :----- | :----------------------- | :---------------- |
+| abab   | 空格宽度是当前字宽(18mu) | \quad             |
+| a,ba,b | 空格宽度是3mu            | ,                 |
+| a:ba:b | 空格宽度是4mu            | :                 |
+| a;ba;b | 空格宽度是5mu            | ;                 |
+| a!ba!b | 空格宽度是-3mu(向左缩)   | \!                |
+| a ba b | 空格宽度是标准空格键效果 | 在\后面敲一个空格 |
+| abab   | 空格宽度是36mu           | \qquad            |
+
+
+
+---
+
+
+
+#### 公式编号
+
+$$
+{ R_1, R_2, ..., R_n } \tag{$1$}
+$$
+
+```latex
+{ R_1, R_2, ..., R_n } \tag{$1$}
+```
+
+
+
+---
+
+
+
+#### 求和 求积 求极限
+
+| 语法                           | 符号                             |
+| ------------------------------ | -------------------------------- |
+| \sum_{i=1}^{\infty}\frac{1}{i} | $\sum_{i=1}^{\infty}\frac{1}{i}$ |
+| \prod_{n=1}^5\frac{n}{n-1}     | $\prod_{n=1}^5\frac{n}{n-1}$     |
+| \lim_{x\to\infty}\frac{1}{x}   | $\lim_{x\to\infty}\frac{1}{x}$   |
+
+
+
+#### 求微积分 偏导
+
+| 符号                                                         | 语法                                                         |
+| :----------------------------------------------------------- | :----------------------------------------------------------- |
+| \frac{d}{dx}\left(x^2\right) = 2x                            | $\frac{d}{dx}\left(x^2\right) = 2x$                          |
+| \int 2x,dx = x^2+C                                           | $\int 2x,dx = x^2+C$                                         |
+| \frac{\partial^2U}{\partial x^2} + \frac{\partial^2U}{\partial y^2} | $\frac{\partial^2U}{\partial x^2} + \frac{\partial^2U}{\partial y^2}$ |
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
