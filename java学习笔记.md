@@ -4,17 +4,7 @@
 
 ### 1.1 Java语言跨平台原理
 
-```mermaid
-stateDiagram
-    Java --> JVM
-    JVM --> Windows版JVM
-    Windows版JVM --> Windows
-    JVM --> Mac版JVM
-  Mac版JVM --> Mac
-    JVM --> Linux版JVM
-    Linux版JVM --> Linux
-```
-
+<center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/image-20220505154808726.png" alt="image-20220505154808726" width=30%/></center>
 
 
 在需要运行Java应用程序的操作系统中，安装一个与操作系统对应的Java虚拟机即可。Java虚拟机(JVM)就像一个翻译一样，将java语言程序翻译成各种操作系统能够运行的程序。
@@ -33,7 +23,7 @@ Java程序开发工具包，包含JRE和开发人员使用的工具。其中，�
 
 我们如果想要开发java程序，就必须安装JDK
 
-<center><img src="Figure/JavaLearningNote/1.png" style="zoom:80%;" /></center>
+<center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/1.png" width=30% /></center>
 
 
 
@@ -45,7 +35,7 @@ Java程序开发工具包，包含JRE和开发人员使用的工具。其中，�
 
 #### 1.3.2 配置环境变量
 
-参见：https://xiaotong-sun.gitee.io/2011732418.html
+参见：[Windows下配置Java环境变量 - Xiao·Tong - 博客园 (cnblogs.com)](https://www.cnblogs.com/xiaotong-sun/p/16139038.html)
 
 提示：如果命令提示符窗口是在配置前打开的，需要关闭该窗口，重新打开一个新的窗口测试。
 
@@ -55,12 +45,7 @@ Java程序开发工具包，包含JRE和开发人员使用的工具。其中，�
 
 ### 2.1 java程序开发运行流程
 
-```mermaid
-	graph LR;
-	编写程序 --> 编译程序 --> 运行程序
-```
-
-
+<center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/image-20220505155146584.png" alt="image-20220505155146584" width=30% /></center>
 
 ### 2.2 HelloWorld案例
 
@@ -111,13 +96,13 @@ public class HelloWorld {
 
 java是强类型语言，对于每一种数据都给出明确的数据类型，不同的数据类型分配不同的内存空间，因此它们表示的数据大小也是不一样的。
 
-<center><img src="Figure/JavaLearningNote/2.png" style="zoom:80%;" /></center>
+<center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/2.png" width=40% /></center>
 
 
 
 #### 3.3.2 内存占用和取值范围
 
-<center><img src="Figure/JavaLearningNote/3.png" style="zoom:80%;" /></center>
+<center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/3.png" width=40% /></center>
 
 
 
@@ -166,7 +151,7 @@ public class VariableDemo {
 
 #### 3.5.2 常见命名约定
 
-<center><img src="Figure/JavaLearningNote/4.png" style="zoom:80%;" /></center>
+<center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/4.png" width=40% /></center>
 
 
 
@@ -176,15 +161,7 @@ public class VariableDemo {
 
 将一个表示**数据范围小**的数值或变量赋值给另一个表示**数据范围大**的变量。
 
-```mermaid
-	graph LR;
-		byte --> short
-		short --> int
-		char --> int
-		int --> long
-		long --> float
-		float --> double
-```
+<center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/image-20220505155213387.png" alt="image-20220505155213387" width=40% /></center>
 
 
 
@@ -350,7 +327,7 @@ int number = r.nextInt(10);
 
 #### 3.13.3 内存分配
 
-<center><img src="Figure/JavaLearningNote/13.png" style="zoom:80%;" />
+<center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/13.png" width=40% /></center>
 
 
 
@@ -423,31 +400,31 @@ IDEA是用于Java语言开发的集成环境，它是业界公认的目前用于
 
 :one: 创建空项目
 
-<center><img src="Figure/JavaLearningNote/5.png" style="zoom:80%;" /></center>
+<center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/5.png" width=40% /></center>
 
 :two: 创建新模块
 
-<center><img src="Figure/JavaLearningNote/6.png" style="zoom:80%;" /></center>
+<center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/6.png" width=40% /></center>
 
 :three: 在模块下的src下创建一个包
 
-<center><img src="Figure/JavaLearningNote/7.png" style="zoom:80%;" /></center>
+<center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/7.png" width=40% /></center>
 
 :four: 在包下创建一个类
 
-<center><img src="Figure/JavaLearningNote/8.png" style="zoom:80%;" />
+<center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/8.png" width=40% /></center>
 
 :five: 在类中编写代码
 
 :six: 在idea中执行程序(生成的class文件在out目录下)
 
-<center><img src="Figure/JavaLearningNote/9.png" style="zoom:80%;" />
+<center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/9.png" width=40% /></center>
 
 
 
 ### 5.3 IDEA项目结构
 
-<center><img src="Figure/JavaLearningNote/10.png" style="zoom:80%;" />
+<center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/10.png" width=40% /></center>
 
 
 
@@ -476,11 +453,11 @@ IDEA是用于Java语言开发的集成环境，它是业界公认的目前用于
 
 - 删除模块
 
-    <center><img src="Figure/JavaLearningNote/11.png" style="zoom:80%;" />
+    <center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/11.png" width=40% /></center>
 
 - 导入模块
 
-    <center><img src="Figure/JavaLearningNote/12.png" style="zoom:80%;" />
+    <center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/12.png" width=40% /></center>
 
 
 
@@ -603,12 +580,8 @@ Debug调试又称为断点调试，断点其实是一个标记，告诉我们从
 
 - 步骤：
 
-    ```mermaid
-    graph LR;
-    	定义类 --> 编写类的成员变量
-    	编写类的成员变量 --> 编写类的成员方法
-    ```
-
+    <center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/image-20220505160300098.png" alt="image-20220505160300098" width=40% /></center>
+    
 - 格式：
 
     ```java
@@ -677,12 +650,11 @@ public class PhoneDemo {
 
 #### 6.3.4 对象内存图及调用过程
 
-<center>
-    <img src="Figure/JavaLearningNote/14.png" style="zoom:80%;" />
-    <br>
-    <b>study方法调用完毕后，出栈，doHomework入栈 </b><br>
-    <img src="Figure/JavaLearningNote/15.png" style="zoom:80%;" />
-</center>
+<center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/14.png" width=40% />
+<br>
+<b>study方法调用完毕后，出栈，doHomework入栈 </b><br>
+<img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/15.png" width=40% /></center>
+
 
 
 
@@ -690,7 +662,7 @@ public class PhoneDemo {
 
 #### 6.3.5 成员变量和局部变量
 
-<center><img src="Figure/JavaLearningNote/16.png" style="zoom:80%;" />
+<center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/16.png" width=40% /></center>
 
 
 
@@ -771,7 +743,7 @@ getAge方法测试结果：30
 
 #### 6.4.3 封装的概念
 
-<center><img src="Figure/JavaLearningNote/17.png" style="zoom:100%;" />
+<center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/17.png" width=40% /></center>
 
 
 
@@ -806,7 +778,7 @@ public class Student {
 
 **注意事项：**
 
-<center><img src="Figure/JavaLearningNote/18.png" style="zoom:80%;" />
+<center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/18.png" width=40% /></center>
 
 
 
@@ -814,7 +786,7 @@ public class Student {
 
 **标准类的制作：**
 
-<center><img src="Figure/JavaLearningNote/19.png" style="zoom:80%;" />
+<center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/19.png" width=40% /></center>
 
 **范例：**
 
@@ -887,13 +859,7 @@ Java API：指的就是JDK中提供的各种功能的java类。我们可以通�
 
 #### 6.6.2 如何使用帮助文档
 
-```mermaid
-	graph LR;
-		在帮助文档中找到该类 --> 看类在哪个包下
-		看类在哪个包下 --> 看类的描述信息
-		看类的描述信息 --> 看构造方法
-		看构造方法 --> 看成员方法
-```
+<center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/image-20220505160424737.png" alt="image-20220505160424737" width=40%/></center>
 
 
 
@@ -901,13 +867,13 @@ Java API：指的就是JDK中提供的各种功能的java类。我们可以通�
 
 #### 6.7.1 概述
 
-<center><img src="Figure/JavaLearningNote/20.png" style="zoom:80%;" />
+<center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/20.png" width=40% /></center>
 
 
 
 #### 6.7.2 构造方法：
 
-<center><img src="Figure/JavaLearningNote/21.png" style="zoom:80%;" />
+<center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/21.png" width=40% /></center>
 
 
 
@@ -989,9 +955,9 @@ public class StringReverse {
 
 #### 6.8.1 概述
 
-<center><img src="Figure/JavaLearningNote/22.png" style="zoom:80%;" />
+<center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/22.png" width=40% />
     <br><br>
-    <img src="Figure/JavaLearningNote/23.png" style="zoom:80%;" />
+    <img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/23.png" width=40% /></center>
 
 
 
@@ -1039,7 +1005,7 @@ public class StringBuilderDemo {
 
 
 
-<center><img src="Figure/JavaLearningNote/24.png" style="zoom:80%;" />
+<center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/24.png" width=40% /></center>
 
 
 
@@ -1169,7 +1135,7 @@ public class Demo {
 
 #### 6.10.3 继承的好处和缺点
 
-<center><img src="Figure/JavaLearningNote/25.png" style="zoom:100%;" />
+<center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/25.png" width=40% /></center>
 
 
 
@@ -1213,13 +1179,13 @@ public class Demo {
 }
 ```
 
-<center><img src="Figure/JavaLearningNote/26.png" style="zoom:80%;" />
+<center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/26.png" width=40% /></center>
 
 
 
 #### 6.10.6 继承中构造方法的访问特点
 
-<center><img src="Figure/JavaLearningNote/27.png" style="zoom:100%;" />
+<center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/27.png" width=40% /></center>
 
 
 
@@ -1237,12 +1203,11 @@ public class Demo {
 
 #### 6.10.8 super内存图
 
-<center>
-    <img src="Figure/JavaLearningNote/30.png" style="zoom:100%;" />
-    <br><br>
-    <img src="Figure/JavaLearningNote/28.png" style="zoom:100%;" />
-    <br><br>
-    <img src="Figure/JavaLearningNote/29.png" style="zoom:100%;" />
+<center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/30.png" width=40% /></center>
+
+<center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/28.png" width=40% /></center>
+
+<center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/29.png" width=40% /></center>
 
 
 #### 6.10.9 方法重写
@@ -1278,7 +1243,7 @@ public class Demo {
 - 格式：package 包名； （多级包用`.`分开
 - 范例：`package com.itheima;`
 
-<center><img src="Figure/JavaLearningNote/31.png" style="zoom:100%;" />
+<center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/31.png" width=40% /></center>
 
 
 
@@ -1295,7 +1260,7 @@ import cn.itcast.Teacher
 
 - 权限修饰符
 
-    <center><img src="Figure/JavaLearningNote/32.png" style="zoom:100%;" />
+    <center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/32.png" width=40% /></center>
 
 - 状态修饰符
 
@@ -1313,7 +1278,7 @@ import cn.itcast.Teacher
 
         - 可以通过类名调用（推荐），也可以通过对象名调用
 
-            <center><img src="Figure/JavaLearningNote/33.png" style="zoom:100%;" />
+            <center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/33.png" width=40% /></center>
 
 
 
@@ -1403,13 +1368,13 @@ public abstract class Animal {
 
 **特点:**
 
-<center><img src="Figure/JavaLearningNote/34.png" style="zoom:80%;" />
+<center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/34.png" width=40% /></center>
 
 
 
 #### 6.14.2 抽象类的成员特点
 
-<center><img src="Figure/JavaLearningNote/35.png" style="zoom:100%;" />
+<center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/35.png" width=40% /></center>
 
 
 ### 6.15 接口
@@ -1432,19 +1397,19 @@ public abstract class Animal {
 
 #### 6.15.2 接口的成员特点
 
-<center><img src="Figure/JavaLearningNote/36.png" style="zoom:80%;" />
+<center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/36.png" width=40% /></center>
 
 
 
 #### 6.15.3 类和接口的关系
 
-<center><img src="Figure/JavaLearningNote/37.png" style="zoom:100%;" />
+<center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/37.png" width=40% /></center>
 
 
 
 #### 6.15.4 抽象类和接口的区别
 
-<center><img src="Figure/JavaLearningNote/38.png" style="zoom:100%;" />
+<center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/38.png" width=40% /></center>
 
 
 
@@ -1706,7 +1671,7 @@ public class Outer {
 
 **Object是类层次结构的根，每个类都可以将Object作为超类。所有的类都直接或间接地继承自该类**
 
-<center><img src="Figure/JavaLearningNote/39.png" style="zoom:120%;" />
+<center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/39.png" width=40% /></center>
 
 
 
@@ -1771,7 +1736,7 @@ public class Student {
 
 ### 7.4 Arrays
 
-<center><img src="Figure/JavaLearningNote/40.png" style="zoom:80%;" />
+<center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/40.png" width=40% /></center>
 
 
 
@@ -1798,7 +1763,7 @@ public class Student {
 
 #### 7.5.2 以Integer为例介绍使用
 
-<center><img src="Figure/JavaLearningNote/41.png" style="zoom:80%;" />
+<center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/41.png" width=40% /></center>
 
 
 #### 7.5.3 自动装箱与自动拆箱
@@ -1842,13 +1807,10 @@ public class ArrayDemo {
 
 #### 7.6.3 SimpleDateFormat类概述
 
-<center>
-    <img src="Figure/JavaLearningNote/42.png" style="zoom:80%;" />
-    <br><br>
-    <img src="Figure/JavaLearningNote/43.png" style="zoom:80%;" />
-    <br><br>
-    <img src="Figure/JavaLearningNote/44.png" style="zoom:80%;" />
-</center>
+<center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/42.png" width=40% /></center>
+<center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/43.png" width=40% /></center>
+<center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/44.png" width=40% /></center>
+
 
 
 
@@ -1933,7 +1895,7 @@ public class CalendarDemo {
 
 #### 7.7.1 概述
 
-<center><img src="Figure/JavaLearningNote/45.png" style="zoom:100%;" />
+<center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/45.png" width=40% /></center>
 
 
 
@@ -1951,26 +1913,32 @@ public class CalendarDemo {
 1. try .... catch....
 
     <center>
-        <img src="Figure/JavaLearningNote/46.png" style="zoom:80%;" />
+        <img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/46.png" width=40% />
         <br>
-        <b>Throwable的成员方法</b>
-        <br>
-    	<img src="Figure/JavaLearningNote/47.png" style="zoom:80%;" />
+    	<b>Throwable的成员方法</b>
+    	<br>
+        <img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/47.png" width=40% />
     </center>
+
+    
+
+    
+
+    
 
 2. throws
 
-    <center><img src="Figure/JavaLearningNote/48.png" style="zoom:100%;" />
+    <center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/48.png" width=40% /></center>
 
 
 
 **自定义异常**
 
-<center><img src="Figure/JavaLearningNote/49.png" style="zoom:100%;" />
+<center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/49.png" width=40% /></center>
 
 
 
-<center><img src="Figure/JavaLearningNote/50.png" style="zoom:100%;" />
+<center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/50.png" width=40% /></center>
 
 **范例**
 
@@ -2028,7 +1996,7 @@ public class TeacherTest2 {
 
 #### 7.8.1 集合体系结构
 
-<center> <img src="C:\Users\86131\Desktop\学习笔记\Figure\JavaLearningNote\51.png" style="zoom:80%;" />
+ <center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/51.png" width=40% /></center>
 
 #### 7.8.2 Collection集合概述和使用
 
@@ -2184,16 +2152,15 @@ public class CollectionDemo01 {
 
 **HashSet集合保证元素唯一性的方法分析：**
 
-<center>
-    <img src="Figure/JavaLearningNote/52.png" style="zoom:110%;" />
-    <br><br>
-    <img src="Figure/JavaLearningNote/53.png" style="zoom:110%;" />
+<center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/52.png" width=40% />
+<br><br>
+<img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/53.png" width=40% /></center>
 
 
 
 **案例**
 
-<center> <img src="Figure/JavaLearningNote/54.png" style="zoom:80%;" />
+ <center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/54.png" width=40% /></center>
 
 在这个案例中，简单的按照思路进行编程是不可行的，因为我们在创建学生对象时，即使学生成员变量的值相同，也是new出来的不同的对象，因此在加入Set时会加入。
 
@@ -2278,7 +2245,7 @@ public class Student {
 
 
 
-<center> <img src="Figure/JavaLearningNote/55.png" style="zoom:80%;" />
+ <center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/55.png" width=40% /></center>
 
 ```java
 public class Student implements Comparable<Student> {
@@ -2347,7 +2314,7 @@ public class TreeSetDemo {
 
 
 
-<center> <img src="Figure/JavaLearningNote/56.png" style="zoom:80%;" />
+ <center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/56.png" width=40% /></center>
 
 ```java
 import java.util.Comparator;
@@ -2372,7 +2339,7 @@ public class TreeSetDemo {
 
 ### 7.9 泛型
 
-<center> <img src="Figure/JavaLearningNote/57.png" style="zoom:100%;" />
+ <center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/57.png" width=40% /></center>
 
 
 #### 7.9.1 泛型类
@@ -2401,7 +2368,7 @@ public class Generic<T> {
 
 #### 7.9.2 泛型方法
 
-<center> <img src="Figure/JavaLearningNote/58.png" style="zoom:80%;" />
+ <center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/58.png" width=40% /></center>
 
 
 
@@ -2417,7 +2384,7 @@ public class GenericMethod {
 
 #### 7.9.3 泛型接口
 
-<center> <img src="Figure/JavaLearningNote/59.png" style="zoom:80%;" />
+ <center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/59.png" width=40% /></center>
 
 ```java
 public interface Generic<T> {
@@ -2436,7 +2403,7 @@ public class GenericImpl<T> implements Generic<T> {
 
 #### 7.9.4 类型通配符
 
-<center> <img src="Figure/JavaLearningNote/60.png" style="zoom:100%;" />
+ <center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/60.png" width=40% /></center>
 
 
 
@@ -2479,7 +2446,7 @@ public class GenericDeom {
 
 #### 7.9.5 可变参数
 
-<center> <img src="Figure/JavaLearningNote/61.png" style="zoom:80%;" />
+ <center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/61.png" width=40% /></center>
 
 ```java
 public class GenericDeom {
@@ -2509,7 +2476,7 @@ public class GenericDeom {
 
 
 **可变参数的使用**
-<center> <img src="Figure/JavaLearningNote/62.png" style="zoom:80%;" />
+ <center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/62.png" width=40% /></center>
 
 
 
@@ -2547,7 +2514,7 @@ public class MapDemo {
 
 #### 7.10.2 Map集合的基本功能
 
-<center> <img src="Figure/JavaLearningNote/63.png" style="zoom:80%;" />
+ <center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/63.png" width=40% /></center>
 
 
 
@@ -2593,7 +2560,7 @@ public class MapDemo {
 
 #### 7.10.3 Map集合的获取功能
 
-<center> <img src="Figure/JavaLearningNote/64.png" style="zoom:80%;" />
+ <center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/64.png" width=40% /></center>
 
 ```java
 import java.util.Collection;
@@ -2694,7 +2661,7 @@ public class MapDemo {
 
 #### 7.10.5 案例
 
-<center> <img src="Figure/JavaLearningNote/65.png" style="zoom:80%;" />
+ <center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/65.png" width=40% /></center>
 
 ```java
 // 案例解析：这个案例的关键在于如何判断学生对象是否为同一个对象。
@@ -2787,7 +2754,7 @@ public class MapDemo {
 
 
 
-<center> <img src="Figure/JavaLearningNote/66.png" style="zoom:80%;" />
+ <center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/66.png" width=40% /></center>
 
 ```java
 import java.util.ArrayList;
@@ -2827,7 +2794,7 @@ public class MapDemo {
 
 
 
-<center> <img src="Figure/JavaLearningNote/67.png" style="zoom:80%;" />
+ <center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/67.png" width=40% /></center>
 
 ```java
 import java.util.ArrayList;
@@ -2870,7 +2837,7 @@ public class MapDemo {
 
 #### 7.11.1 概述和使用
 
-<center> <img src="Figure/JavaLearningNote/68.png" style="zoom:80%;" />
+ <center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/68.png" width=40% /></center>
 
 ```java
 import java.util.ArrayList;
@@ -2906,7 +2873,7 @@ public class CollectionsDemo {
 
 #### 7.11.2 案例
 
-<center> <img src="Figure/JavaLearningNote/69.png" style="zoom:80%;" />
+ <center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/69.png" width=40% /></center>
 
 ==对比7.8.7==
 
@@ -3051,7 +3018,7 @@ public class CollectionsDemo {
 
 
 
-<center> <img src="Figure/JavaLearningNote/70.png" style="zoom:80%;" />
+ <center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/70.png" width=40% /></center>
 
 
 
@@ -3126,7 +3093,7 @@ public class CollectionsDemo {
 
 #### 7.12.1 File类概述和构造方法
 
-<center> <img src="Figure/JavaLearningNote/71.png" style="zoom:100%;" />
+ <center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/71.png" width=40% /></center>
 
 **这三个构造方法在实际应用中是等效的。**
 
@@ -3146,12 +3113,12 @@ public class CollectionsDemo {
 
 #### 7.12.3 File类判断和获取功能
 
-<center><img src="Figure/JavaLearningNote/72.png" style="zoom:80%;" />
+<center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/72.png" width=40% /></center>
 
 
 #### 7.12.4 File类删除功能
 
-<center> <img src="Figure/JavaLearningNote/73.png" style="zoom:110%;" />
+ <center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/73.png" width=40% /></center>
 
 
 
@@ -3160,13 +3127,13 @@ public class CollectionsDemo {
 
 #### 7.13.1 IO流概述和分类
 
-<center> <img src="Figure/JavaLearningNote/74.png" style="zoom:80%;" />
+ <center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/74.png" width=40% /></center>
 
 
 
 #### 7.13.2 字节流写数据
 
-<center> <img src="Figure/JavaLearningNote/75.png" style="zoom:80%;" />
+ <center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/75.png" width=40% /></center>
 
 ```java
 import java.io.FileOutputStream;
@@ -3190,7 +3157,7 @@ public class FileDemo {
 
 
 
-<center><img src="Figure/JavaLearningNote/76.png" style="zoom:80%;" />
+<center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/76.png" width=40% /></center>
 
 ```java
 import java.io.FileOutputStream;
@@ -3216,7 +3183,7 @@ public class FileDemo {
 
 
 
-<center> <img src="Figure/JavaLearningNote/77.png" style="zoom:80%;" />
+ <center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/77.png" width=40% /></center>
 
 
 
@@ -3256,10 +3223,9 @@ public class FileDemo {
 
 #### 7.13.3 字节流读数据
 
-<center>
-    <b><font size = 6 color = "green">一次读入一个字节数据 （对中文数据不友好）</font></b>
-    <br>
-    <img src="Figure/JavaLearningNote/78.png" style="zoom:80%;" />
+<center><b><font size = 6 color = "green">一次读入一个字节数据 （对中文数据不友好）</font></b>
+<br>
+    <img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/78.png" width=40% /></center>
 
 ```java
 import java.io.FileInputStream;
@@ -3290,9 +3256,8 @@ public class FileDemo {
 
 
 
-<center>
-    <b><font size = 6 color = "green">一次读入一个字节数组数据</font></b>
-</center>
+<center><b><font size = 6 color = "green">一次读入一个字节数组数据</font></b></center>
+
 
 ```java
 import java.io.*;
@@ -3353,8 +3318,7 @@ public class FileDemo {
 
 #### 7.13.5 字节缓冲流
 
-<center> <img src="Figure/JavaLearningNote/79.png" style="zoom:100%;" />
-
+ <center><img src="https://xiaotong-sun2.oss-cn-beijing.aliyuncs.com/typora/JavaLearning/79.png" width=40% /></center>
 ==当读取数据量大的文件时，读取的速度会很慢，很影响我们程序的效率，Java中提高了一套缓冲流，它的存在，可提高IO流的读写速度。==
 
 缓冲流，根据流的分类分成字节缓冲流与字符缓冲流。
